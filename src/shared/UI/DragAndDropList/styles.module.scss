@@ -1,0 +1,10 @@
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.draggableItem {
+  user-select: none;
+
+  margin-bottom: .5rem;
+}

@@ -1,0 +1,27 @@
+// check
+
+.notification {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, .75);
+  background-color: rgba(0, 0, 0, .75);
+  backdrop-filter: blur(.5rem);
+  border-radius: .5rem;
+  transition: opacity 500ms ease, visibility 500ms ease;
+  z-index: 1000;
+}
+
+.notification.danger {
+  color: var(--color-danger);
+}
+
+.notification.success {
+  color: var(--color-success);
+}
+
+.notification.info {
+  color: var(--color-info);
+}

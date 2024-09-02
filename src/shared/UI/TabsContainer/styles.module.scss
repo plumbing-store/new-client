@@ -1,0 +1,13 @@
+.container {
+  width: 100%;
+}
+
+.tape {
+  width: 100%;
+
+  overflow: hidden;
+
+  @media (min-width: 768px) {
+    overflow: auto;
+  }
+}

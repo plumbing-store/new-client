@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  display: flex;
+  position: relative;
+  overflow: auto;
+  padding-bottom: .0625rem;
+}
+
+.list::after {
+  content: '';
+  position: absolute;
+  bottom: .0625rem;
+  left: 0;
+  right: 0;
+  height: .0625rem;
+  background-color: rgb(225, 225, 225);
+}
+
+.tab {
+  padding: .5rem 1.25rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  white-space: nowrap;
+  border-bottom: .125rem solid transparent;
+  font-size: clamp(.8rem, 2vw, 1rem);
+  transition: border-bottom 300ms ease;
+}
+
+.tab:hover {
+  color: var(--color-primary);
+  border-bottom: .125rem solid var(--color-primary);
+  position: relative;
+  z-index: 5;
+}
+
+.active {
+  border-bottom: .125rem solid rgb(105, 105, 105);
+  position: relative;
+  z-index: 5;
+}

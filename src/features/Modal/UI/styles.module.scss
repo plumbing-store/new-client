@@ -1,0 +1,43 @@
+.modal {
+  top: 50%;
+  left: 50%;
+  border-radius: .75rem;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  width: clamp(20rem, 90vw, 30rem);
+  height: fit-content;
+  background: var(--color-light);
+  z-index: 120;
+}
+
+.wrapper {
+  position: relative;
+  padding: 1.25rem;
+}
+
+// TODO: refactor
+
+.closeButton {
+  position: fixed;
+  background: var(--color-dark-transparent-75);
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 120;
+  backdrop-filter: blur(.5rem);
+
+  @media (min-width: 992px) {
+    top: .5rem;
+    right: .5rem;
+    position: absolute;
+  }
+
+  & .icon {
+    color: var(--color-light-transparent-85);
+  }
+}

@@ -1,0 +1,19 @@
+.wrapper {
+  width: min(100%, 50rem);
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.fields,
+.horizontalFields {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.horizontalFields {
+  @media (min-width: 992px) {
+    flex-direction: row;
+  }
+}

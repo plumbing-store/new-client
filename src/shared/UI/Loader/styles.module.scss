@@ -1,0 +1,17 @@
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  border: .25rem solid var(--color-light);
+  border-top: .25rem solid var(--color-primary);
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  animation: spin 1000ms linear infinite;
+}

@@ -1,0 +1,60 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.label {
+  margin-bottom: .5rem;
+  font-size: .75rem;
+  color: var(--color-dark-transparent-45);
+}
+
+.input {
+  padding: 1.05rem;
+  font-size: 1.15rem;
+  background: var(--color-light);
+  color: var(--color-dark);
+  border: .0625rem solid var(--color-dark-transparent-25);
+  border-radius: .25rem;
+  outline: none;
+  width: 100%;
+
+  &::placeholder {
+    color: var(--color-dark-transparent-35);
+  }
+
+  &:focus {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+
+    & + .label {
+      color: var(--color-primary);
+    }
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.hint {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: fit-content;
+  margin-top: .5rem;
+  padding: .5rem;
+  font-size: .75rem;
+  color: var(--color-secondary);
+  background-color: var(--color-light-transparent-85);
+  backdrop-filter: blur(.075rem);
+  border-radius: .25rem;
+  z-index: 10;
+}
+
+.invalid {
+  border-color: var(--color-danger) !important;
+  color: var(--color-danger) !important;
+}

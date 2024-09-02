@@ -1,0 +1,38 @@
+.popover {
+  position: absolute;
+  top: 115%;
+  left: 0;
+  right: 0;
+  background: var(--color-light);
+  border: .0625rem solid var(--color-dark-transparent-10);
+  box-shadow: 0 .25rem .5rem rgba(0, 0, 0, 0.15);
+  z-index: 50;
+  border-radius: .5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 10rem;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.option {
+  color: var(--color-dark-transparent-95);
+  padding: .75rem;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: .875rem;
+  font-weight: 600;
+  transition: background 300ms;
+
+  &:hover {
+    background: var(--color-dark-transparent-10);
+
+    border-color: transparent;
+  }
+}

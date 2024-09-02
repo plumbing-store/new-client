@@ -1,0 +1,43 @@
+.panel {
+  background: var(--color-light-darker-transparent-80);
+  backdrop-filter: blur(.75rem);
+  width: min(100%, 50rem);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  transition: 200ms transform ease-in-out, 200ms opacity ease-in-out;
+  z-index: 1000;
+  padding: 1.25rem;
+  overflow: auto;
+}
+
+.hidden {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.closeButton {
+  position: fixed;
+  background: var(--color-dark-transparent-75);
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 120;
+  backdrop-filter: blur(.5rem);
+
+  @media (min-width: 992px) {
+    top: .5rem;
+    right: .5rem;
+    position: absolute;
+  }
+
+  & .icon {
+    color: var(--color-light-transparent-85);
+  }
+}

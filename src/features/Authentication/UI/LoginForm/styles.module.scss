@@ -1,0 +1,19 @@
+.form {
+  width: min(100%, 20rem);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  width: 100%;
+}
+
+.heading {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+}

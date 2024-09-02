@@ -1,0 +1,36 @@
+.button {
+  height: 3.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  position: relative;
+  padding: .75rem 1.15rem;
+  font-weight: 500;
+  font-size: 1.15rem;
+  color: var(--color-light);
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  transition: background-color 300ms ease;
+  width: 100%;
+
+  &:hover {
+    background: var(--color-dark-transparent-90);
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: .25rem solid var(--color-light);
+  }
+}
+
+.fit {
+  width: fit-content;
+}

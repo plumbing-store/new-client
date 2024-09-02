@@ -1,0 +1,62 @@
+.panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-light);
+  z-index: 110;
+  overflow: auto;
+
+  transition: 500ms width ease-in-out, 500ms opacity ease-in-out, 500ms display ease-in-out;
+
+  padding: .75rem;
+
+  @media (min-width: 992px) {
+    position: relative;
+
+    width: 50%;
+
+    padding: 0;
+    z-index: 0;
+  }
+}
+
+.hidden {
+  opacity: 0;
+  width: 0;
+  display: none;
+}
+
+.closeButton {
+  position: fixed;
+  background: var(--color-dark-transparent-75);
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 120;
+  backdrop-filter: blur(.5rem);
+
+  @media (min-width: 992px) {
+    top: .5rem;
+    right: .5rem;
+    position: absolute;
+  }
+
+  & .icon {
+    color: var(--color-light-transparent-85);
+  }
+}
+
+.static {
+  @media (min-width: 992px) {
+    & .closeButton {
+      display: none;
+    }
+  }
+}

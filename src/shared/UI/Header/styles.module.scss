@@ -1,0 +1,47 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-block: .75rem;
+  position: sticky;
+  top: 0;
+  background: var(--color-light);
+  z-index: 20;
+}
+
+.part {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.menuButtonWrapper {
+  @media (min-width: 1200px) {
+    display: none;
+  }
+}
+
+.nav {
+  display: flex;
+
+  gap: .5rem;
+}
+
+.linkWrapper {
+  padding: .5rem;
+
+  position: relative;
+}
+
+.link {
+  transition: 200ms all ease-in-out;
+
+  font-weight: 600;
+  font-size: .75rem;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}
