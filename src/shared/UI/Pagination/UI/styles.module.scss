@@ -1,0 +1,49 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .5rem;
+
+  flex: 1;
+
+  .pageNumbers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+  }
+
+  .arrows {
+    display: flex;
+    gap: .5rem;
+  }
+
+  .pageButton {
+    width: 3.25rem;
+    height: 2.25rem;
+    border: .125rem solid var(--color-primary-transparent-25);
+    color: var(--color-primary);
+    font-size: 1.0rem;
+    font-weight: 600;
+    border-radius: .25rem;
+    cursor: pointer;
+    transition: 120ms all ease-in-out;
+
+    &:hover {
+      border-color: var(--color-primary);
+    }
+
+    &.active {
+      background-color: var(--color-primary);
+      color: var(--color-light-darker);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  //@media (min-width: 1200px) {
+  //  justify-content: space-between;
+  //}
+}

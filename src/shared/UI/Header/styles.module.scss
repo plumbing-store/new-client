@@ -4,17 +4,64 @@
   align-items: center;
 
   padding-block: .75rem;
+  gap: 1.5rem;
   position: sticky;
   top: 0;
   background: var(--color-light);
   z-index: 20;
 }
 
+.desktop {
+  display: none;
+
+  @media (min-width: 576px) {
+    display: flex;
+  }
+}
+
+.mobile {
+  @media (min-width: 576px) {
+    display: none;
+  }
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  flex: 1;
+
+  gap: 1.25rem;
+}
+
 .part {
+  flex: 1;
+
   display: flex;
   gap: 1rem;
   align-items: center;
   justify-content: flex-end;
+
+  @media (min-width: 992px) {
+    gap: clamp(1rem, 5vw, 3.5rem);
+  }
+}
+
+.meta {
+  gap: 1rem;
+  align-items: center;
+
+  @media (min-width: 992px) {
+    gap: clamp(1rem, 5vw, 3.5rem);
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+
+  gap: 1rem;
 }
 
 .menuButtonWrapper {
@@ -23,25 +70,3 @@
   }
 }
 
-.nav {
-  display: flex;
-
-  gap: .5rem;
-}
-
-.linkWrapper {
-  padding: .5rem;
-
-  position: relative;
-}
-
-.link {
-  transition: 200ms all ease-in-out;
-
-  font-weight: 600;
-  font-size: .75rem;
-
-  &:hover {
-    color: var(--color-primary);
-  }
-}

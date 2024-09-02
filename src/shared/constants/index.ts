@@ -1,15 +1,5 @@
-import { LngLatArray } from '@/shared/UI/PolygonMap'
-
-export const CYPRUS_LATITUDE = '35.1264'
-export const CYPRUS_LONGITUDE = '33.4299'
-
-export const CYPRUS_POLYGON: LngLatArray[] = [
-    [33.3323, 35.2356],
-    [33.4323, 35.2356],
-    [33.4323, 35.1356],
-    [33.3323, 35.1356],
-    [33.3323, 35.2356]
-]
+export const workPhoneNumber = '8 991 736-12-35'
+export const workEmail = 'santeh-prof@bk.ru'
 
 export const tlds = [
     'com',

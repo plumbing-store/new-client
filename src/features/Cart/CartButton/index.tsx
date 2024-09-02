@@ -3,16 +3,16 @@
 import React from 'react'
 import styles from './styles.module.scss'
 import { useRouter } from 'next/navigation'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 
-const ProfileButton = () => {
+const CartButton = () => {
     const router = useRouter()
 
     return (
         <button className={styles.button} onClick={() => router.push('/profile')}>
-            <AccountCircleIcon style={{ fontSize: 36 }} />
+            <ShoppingCartIcon style={{ fontSize: 26 }} />
         </button>
     )
 }
 
-export default ProfileButton
+export default CartButton

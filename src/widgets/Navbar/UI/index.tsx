@@ -84,7 +84,7 @@ const Navbar = () => {
                         <Link
                             key={index}
                             className={styles.link}
-                            href={`/categories/${category.id}`}
+                            href={`/categories/${category.slug}`}
                         >
                             <span>{category.name}</span>
                         </Link>

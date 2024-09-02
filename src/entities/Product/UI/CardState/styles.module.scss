@@ -1,0 +1,37 @@
+.wrapper {
+  display: grid;
+
+  grid-template-columns: 3fr 2fr 1fr 1fr;
+
+  gap: .5rem;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+
+  gap: 1.5rem;
+}
+
+.image {
+  width: 5.5rem;
+  height: 5.5rem;
+
+  object-position: center;
+  object-fit: cover;
+
+  aspect-ratio: 1 / 1;
+}
+
+.name {
+  font-size: 1.00rem;
+  font-weight: 550;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 550;
+}

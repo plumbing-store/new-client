@@ -2,97 +2,44 @@
 
 import React, { useState } from 'react'
 import styles from './styles.module.scss'
+import classNames from 'classnames'
 
 import ModeToggleButton from '@/features/Mode/UI/ModeToggleButton'
 import ProfileButton from '@/features/Profile/UI/ProfileButton'
 import MenuButton from '@/features/Menu/UI/MenuButton'
 import Popover from '@/shared/UI/Popover'
 import { useLanguage } from '@/app/providers/LanguageProvider'
+import Search from '@/features/Search/UI'
+import HeaderNav from '@/widgets/HeaderNav/UI'
+import HeaderContacts from '@/widgets/HeaderContacts/UI'
+import CartButton from '@/features/Cart/CartButton'
 
 const Header = () => {
-    const [isHidden, setIsHidden] = useState(true)
-    const [activePopover, setActivePopover] = useState<number | null>(null)
-
-    const links = [
-        {
-            name: 'Главная',
-            href: '/'
-        },
-        {
-            name: 'О компании',
-            options: [
-                {
-                    name: 'О компании',
-                    value: '/about'
-                },
-                {
-                    name: 'Преимущества',
-                    value: '/advantages'
-                }
-            ]
-        },
-        {
-            name: 'Полезное',
-            options: [
-                {
-                    name: 'Партнёры',
-                    value: '/partners'
-                },
-                {
-                    name: 'Рекламации',
-                    value: '/ad'
-                }
-            ]
-        },
-        {
-            name: 'Доставка и оплата',
-            href: '/delivery'
-        }
-    ]
-
-    const onOptionClick = (value: string) => {
-        setIsHidden(true)
-        setActivePopover(null)
-    }
-
     return (
-        <header className={styles.header}>
-            <div className={styles.nav}>
-                {links.map((link, index) => (
-                    <div key={index} className={styles.linkWrapper}>
-                        {link.href ? (
-                            <a href={link.href} className={styles.link}>
-                                {link.name}
-                            </a>
-                        ) : (
-                            <div className={styles.popoverWrapper}>
-                                <button
-                                    className={styles.link}
-                                    onClick={() =>
-                                        setActivePopover(activePopover === index ? null : index)
-                                    }
-                                >
-                                    {link.name}
-                                </button>
-                                {activePopover === index && (
-                                    <Popover
-                                        options={link.options || []}
-                                        isHidden={activePopover !== index}
-                                        setIsHidden={setIsHidden}
-                                        onClick={onOptionClick}
-                                    />
-                                )}
-                            </div>
-                        )}
+        <div className={styles.wrapper}>
+            <header className={styles.header}>
+                <HeaderNav />
+
+                <div className={styles.part}>
+                    <Search />
+
+                    <div className={classNames(styles.desktop, styles.meta)}>
+                        <HeaderContacts />
+
+                        <div className={styles.buttons}>
+                            <ProfileButton />
+                            <CartButton />
+                        </div>
                     </div>
-                ))}
-            </div>
-            <div className={styles.part}>
-                <div className={styles.menuButtonWrapper}>
-                    <MenuButton />
+                    <div className={styles.menuButtonWrapper}>
+                        <MenuButton />
+                    </div>
                 </div>
+            </header>
+            <div className={styles.mobile}>
+                <HeaderContacts />
             </div>
-        </header>
+        </div>
     )
 }
 

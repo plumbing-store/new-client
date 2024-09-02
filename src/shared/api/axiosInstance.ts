@@ -12,16 +12,16 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     async (config) => {
-        const excludedPaths = ['/auth/login']
+        const tokenPaths = ['/account']
 
-        if (excludedPaths.includes(config.url || '')) {
-            return config
-        }
+        if (tokenPaths.includes(config.url || '')) {
+            const token = JSON.parse(localStorage.getItem('token') || 'null')
 
-        const token = JSON.parse(localStorage.getItem('token') || 'null')
-
-        if (token) {
-            config.headers.Authorization = token
+            if (token) {
+                config.headers.Authorization = token
+            }
+        } else {
+            delete config.headers.Authorization
         }
 
         return config

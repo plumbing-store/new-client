@@ -1,0 +1,26 @@
+.nav {
+  display: none;
+
+  gap: .5rem;
+
+  @media (min-width: 992px) {
+    display: flex;
+  }
+}
+
+.linkWrapper {
+  padding: .5rem;
+
+  position: relative;
+}
+
+.link {
+  transition: 200ms all ease-in-out;
+
+  font-weight: 600;
+  font-size: .75rem;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}

@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 1.5rem;
+  padding: .5rem .75rem;
+  border: .15rem solid var(--color-dark-transparent-10);
+
+  & div {
+    font-weight: 600;
+  }
+}
