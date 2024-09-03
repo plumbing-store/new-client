@@ -73,7 +73,7 @@ const Navbar = () => {
         <motion.div
             ref={navRef}
             className={styles.wrapper}
-            animate={isNavbarHidden && screenSize < 1200 ? 'hidden' : 'visible'}
+            animate={isNavbarHidden && screenSize < 1600 ? 'hidden' : 'visible'}
             variants={variants}
             transition={{ duration: 0.5 }}
         >

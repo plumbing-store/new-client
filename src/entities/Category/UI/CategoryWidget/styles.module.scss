@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2.15rem;
+}
+
+.core {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.5rem;
+
+  @media (min-width: 992px) {
+    flex-direction: row;
+  }
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2.5rem;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3.5rem;
+}

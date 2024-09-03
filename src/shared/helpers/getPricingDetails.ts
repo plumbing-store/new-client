@@ -6,17 +6,19 @@ interface PricingDetails {
     basePrice: number | null
 }
 
-export const getPricingDetails = (prices: IPrice[], base: PriceName | null): PricingDetails => {
+export const getPricingDetails = (
+    prices: IPrice[],
+    base: PriceName = PriceName.UNAUTHORIZED
+): PricingDetails => {
     const basePrice = determinePrice(prices, PriceName.UNAUTHORIZED).price
+    const currentPrice = determinePrice(prices, base).price
 
-    if (!base) {
+    if (basePrice === currentPrice) {
         return {
-            currentPrice: basePrice,
+            currentPrice,
             basePrice: null
         }
     }
-
-    const currentPrice = determinePrice(prices, base).price
 
     return {
         currentPrice,

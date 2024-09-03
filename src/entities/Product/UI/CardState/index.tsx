@@ -5,11 +5,12 @@ import Image from 'next/image'
 import { determinePrice } from '@/shared/helpers/determinePrice'
 import { PriceName } from '@/entities/Price/model/types'
 import { getPricingDetails } from '@/shared/helpers/getPricingDetails'
+import PurchaseForm from '@/entities/Product/UI/PurchaseForm'
 
 interface Props extends IProduct {}
 
 const CardState = ({ id, image, name, sku, prices }: Props) => {
-    const pricingDetails = getPricingDetails(prices, PriceName.USD_BASE_5)
+    const pricingDetails = getPricingDetails(prices, PriceName.BASE_10)
 
     return (
         <div className={styles.wrapper}>
@@ -28,8 +29,18 @@ const CardState = ({ id, image, name, sku, prices }: Props) => {
                     <p className={styles.sku}>{sku}</p>
                 </div>
             </div>
-            <div className={styles.cell}>В наличии</div>
-            <div className={styles.cell}>{pricingDetails.currentPrice?.price}</div>
+            <div className={styles.cell}>
+                <div className={styles.quantity}>В наличии</div>
+            </div>
+            <div className={styles.cell}>
+                <div className={styles.price}>
+                    <div className={styles.current}>{pricingDetails.currentPrice} ₽</div>
+                    {pricingDetails.basePrice && (
+                        <div className={styles.base}>{pricingDetails.basePrice}</div>
+                    )}
+                </div>
+            </div>
+            <PurchaseForm productId={id} />
         </div>
     )
 }

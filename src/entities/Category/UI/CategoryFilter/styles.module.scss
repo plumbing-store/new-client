@@ -1,0 +1,76 @@
+.wrapper {
+  flex: 1;
+  min-width: 15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.properties {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: background-color 200ms ease-in-out;
+}
+
+.name {
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.icon {
+  transition: transform 200ms ease-in-out;
+}
+
+.open {
+  transform: rotate(180deg);
+}
+
+.list {
+  max-height: 20rem;
+
+  transition: max-height 300ms ease-in-out, opacity 100ms ease-in-out;
+
+  background: rgb(255, 255, 255);
+  overflow: hidden auto;
+  border-radius: .75rem;
+
+  &.hidden {
+    pointer-events: none;
+
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+.value {
+  padding: 0.5rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: color 200ms ease-in-out;
+}
+
+.value:hover {
+  background: var(--color-primary-transparent-10);
+}
+
+.buttons {
+  display: flex;
+  gap: .5rem;
+
+  & button {
+    font-size: .875rem !important;
+    padding: .65rem !important;
+    height: fit-content !important;
+  }
+}

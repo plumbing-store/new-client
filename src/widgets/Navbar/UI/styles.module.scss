@@ -5,6 +5,8 @@
 
   backdrop-filter: blur(.5rem);
 
+  background: var(--color-light-transparent-75);
+
   position: fixed;
 
   top: 0;
@@ -15,7 +17,7 @@
 
   z-index: 100;
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1600px) {
     position: relative;
 
     padding-right: 0;

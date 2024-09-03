@@ -1,9 +1,19 @@
 .wrapper {
   display: grid;
+  gap: 0.5rem;
+  height: 100%;
+  justify-items: center;
+  align-items: center;
 
-  grid-template-columns: 3fr 2fr 1fr 1fr;
+  grid-template-columns: 1fr;
 
-  gap: .5rem;
+  @media (min-width: 600px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: 2fr 2fr 1fr 1fr;
+  }
 }
 
 .head {
@@ -11,6 +21,7 @@
   align-items: center;
 
   gap: 1.5rem;
+  width: 100%;
 }
 
 .image {
@@ -33,5 +44,34 @@
   align-items: center;
   justify-content: center;
 
+  min-height: 2.5rem;
+
   font-weight: 550;
+}
+
+.price {
+  position: relative;
+
+  & .current {
+    font-size: 1.15rem;
+  }
+
+  & .base {
+    color: var(--color-danger-transparent-70);
+
+    font-size: .65rem;
+    font-weight: 800;
+
+    position: absolute;
+    text-decoration: line-through;
+
+    top: -70%;
+    right: -40%;
+  }
+}
+
+.quantity {
+  color: var(--color-primary-transparent-75);
+
+  font-size: .875rem;
 }

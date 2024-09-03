@@ -1,0 +1,19 @@
+.breadcrumbs {
+  display: flex;
+  gap: .5rem;
+}
+
+.link {
+  font-size: .875rem;
+  font-weight: 600;
+
+  transition: 200ms all ease-in-out;
+
+  &:hover {
+    color: var(--color-tertiary);
+  }
+}
+
+.active {
+  color: var(--color-primary);
+}

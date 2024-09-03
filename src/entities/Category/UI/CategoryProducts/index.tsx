@@ -6,7 +6,7 @@ import ProductCard from '@/entities/Product/UI/ProductCard'
 const CategoryProducts = () => {
     const { category } = useCategoryStore()
 
-    if (!category) {
+    if (!category || !category.products) {
         return
     }
 

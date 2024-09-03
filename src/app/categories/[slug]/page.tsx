@@ -3,21 +3,34 @@ import { fetchCategory } from '@/entities/Category/api/fetchCategory'
 import { useRouter } from 'next/navigation'
 import Wrapper from '@/shared/UI/Wrapper'
 import CategoryWidget from '../../../entities/Category/UI/CategoryWidget'
+import { fetchProperties } from '@/entities/Category/api/fetchProperties'
 
 const Category = async ({ params }: { params: { slug: string } }) => {
-    const data = await fetchCategory(params.slug)
+    const { result: category, total, depth, breadcrumbs } = await fetchCategory(params.slug)
 
-    if (!data) {
-        return
+    if (!category) {
+        return <div>No category</div>
     }
 
-    if (data.depth === 0) {
-        return <div>Subcategory list</div>
+    const properties = await fetchProperties(category.id)
+
+    if (!properties) {
+        return <div>No properties</div>
     }
+
+    // if (depth === 0) {
+    //     return <div>Subcategory list</div>
+    // }
 
     return (
         <Wrapper>
-            <CategoryWidget {...data} />
+            <CategoryWidget
+                category={category}
+                properties={properties}
+                depth={depth}
+                breadcrumbs={breadcrumbs}
+                total={total}
+            />
         </Wrapper>
     )
 }
