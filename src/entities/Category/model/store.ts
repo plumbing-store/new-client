@@ -22,6 +22,9 @@ interface ICategoryState {
     total: number
     setTotal: (total: number) => void
 
+    page: number
+    setPage: (page: number) => void
+
     breadcrumbs: { name: string; slug: string }[]
     setBreadcrumbs: (breadcrumbs: { name: string; slug: string }[]) => void
 
@@ -35,11 +38,14 @@ interface ICategoryState {
             | ((prevState: Record<string, string>[]) => Record<string, string>[])
     ) => void
 
-    sortOptions: { name: string; value: boolean }
+    sortOptions: { sort: 'name' | 'price'; sortInverse: boolean }
     setSortOptions: (
         value:
-            | { name: string; value: boolean }
-            | ((prevState: { name: string; value: boolean }) => { name: string; value: boolean })
+            | { sort: 'name' | 'price'; sortInverse: boolean }
+            | ((prevState: { sort: 'name' | 'price'; sortInverse: boolean }) => {
+                  sort: 'name' | 'price'
+                  sortInverse: boolean
+              })
     ) => void
 }
 
@@ -62,10 +68,13 @@ export const useCategoryStore = create<ICategoryState>((set) => ({
     total: 0,
     setTotal: (total) => set({ total }),
 
+    page: 1,
+    setPage: (page) => set({ page }),
+
     breadcrumbs: [],
     setBreadcrumbs: (breadcrumbs) => set({ breadcrumbs }),
 
-    sortOptions: { name: 'price', value: false },
+    sortOptions: { sort: 'price', sortInverse: false },
     setSortOptions: (value) =>
         set((state) => ({
             sortOptions: typeof value === 'function' ? value(state.sortOptions) : value

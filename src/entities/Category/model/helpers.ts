@@ -1,6 +1,7 @@
 import { fetchProducts } from '@/entities/Product/api/fetchProducts'
 import { quantity } from '@/entities/Category/model/constants'
 import { ICategory } from '@/entities/Category/model/types'
+import { useCategoryStore } from '@/entities/Category/model/store'
 
 export const generateFilter = (selectedProperties: Record<string, string>[]) => {
     return selectedProperties.reduce((acc, property) => {
@@ -9,14 +10,22 @@ export const generateFilter = (selectedProperties: Record<string, string>[]) => 
     }, {})
 }
 
-export const updateProducts = async (
-    setTotal: (total: number) => void,
-    setCategory: (value: ICategory | ((prevState: ICategory) => ICategory)) => void,
-    category: any,
-    skip: number = 0,
-    filter: Record<string, string> = {}
-) => {
-    const data = await fetchProducts(category.id, quantity, skip, filter)
+export const updateProducts = async () => {
+    const { page, category, setCategory, sortOptions, setTotal, selectedProperties } =
+        useCategoryStore.getState()
+
+    const filter = generateFilter(selectedProperties)
+
+    const skip = (page - 1) * quantity
+
+    const data = await fetchProducts(
+        category.id,
+        quantity,
+        skip,
+        filter,
+        sortOptions.sort,
+        sortOptions.sortInverse
+    )
 
     if (!data) return
 

@@ -25,30 +25,28 @@ interface Props {
 
 const CategoryWidget = ({ depth, total, breadcrumbs, category, properties }: Props) => {
     const {
-        selectedProperties,
         setCategory,
         setProperties,
         setBreadcrumbs,
-        total: totalPages,
+        page,
+        total: totalValue,
         setTotal,
-        setDepth
+        setDepth,
+        setPage
     } = useCategoryStore()
-
-    const [page, setPage] = useState<number>(1)
 
     useEffect(() => {
         setCategory(category)
         setDepth(depth)
         setBreadcrumbs(breadcrumbs)
         setProperties(properties)
+        setTotal(total)
     }, [])
 
     const onPageChange = async (page: number) => {
-        const skip = (page - 1) * quantity
+        setPage(page)
 
-        const filter = generateFilter(selectedProperties)
-
-        await updateProducts(setTotal, setCategory, category, skip, filter)
+        await updateProducts()
     }
 
     return (
@@ -66,7 +64,7 @@ const CategoryWidget = ({ depth, total, breadcrumbs, category, properties }: Pro
                     <CategoryProducts />
                     <Pagination
                         currentPage={page}
-                        totalPages={totalPages || total}
+                        totalPages={totalValue}
                         maxVisiblePages={10}
                         debounceTime={340}
                         onPageChange={onPageChange}

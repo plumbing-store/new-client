@@ -1,13 +1,35 @@
 import { create } from 'zustand'
 
-export type IUser = any
+export interface ICart {
+    id: number
+    companyId: number
+    data: any[]
+    createdAt: string
+    updatedAt: string
+}
+
+export interface IAccount {
+    id: number
+    externalId: string
+    number: number
+    name: string
+    priceName: string
+    phone: string
+    passwordHash: string
+    address: string
+    email: string
+    createdAt: string
+    updatedAt: string
+    orders: any[]
+    cart: ICart
+}
 
 interface IState {
-    user: IUser | null
-    setUser: (user: IUser) => void
+    account: IAccount | null
+    setAccount: (account: IAccount) => void
 }
 
 export const useAuthStore = create<IState>((set) => ({
-    user: null,
-    setUser: (user) => set({ user })
+    account: null,
+    setAccount: (account) => set({ account })
 }))

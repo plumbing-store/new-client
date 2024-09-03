@@ -15,7 +15,10 @@ const CategoryFilter = () => {
         properties,
         selectedProperties,
         setSelectedProperties,
-        setTotal
+        setTotal,
+        setPage,
+        sortOptions,
+        setSortOptions
     } = useCategoryStore()
     const [openProperty, setOpenProperty] = useState<number | null>(null)
 
@@ -50,15 +53,17 @@ const CategoryFilter = () => {
     }
 
     const applyFilter = async () => {
-        const filter = generateFilter(selectedProperties)
+        setPage(1)
 
-        await updateProducts(setTotal, setCategory, category, 0, filter)
+        await updateProducts()
     }
 
     const resetFilter = async () => {
         setSelectedProperties([])
+        setPage(1)
+        setSortOptions({ sort: 'price', sortInverse: true })
 
-        await updateProducts(setTotal, setCategory, category, 0)
+        await updateProducts()
     }
 
     return (

@@ -23,7 +23,7 @@ const localization = {
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter()
-    const { setUser } = useAuthStore()
+    const { setAccount } = useAuthStore()
 
     const [storedToken, setStoredToken] = useLocalStorage<string | null>('token', null)
 
@@ -65,7 +65,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             console.log(account)
 
             if (account) {
-                setUser(account)
+                setAccount(account)
                 setCookie('role', account.role)
 
                 // await checkRoleAndRedirect(user.role)
@@ -73,7 +73,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
 
         setIsLoading(false)
-    }, [storedToken, setUser, checkRoleAndRedirect, logOutAndReset])
+    }, [storedToken, setAccount, checkRoleAndRedirect, logOutAndReset])
 
     useEffect(() => {
         initializeAuth()

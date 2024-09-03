@@ -1,56 +1,82 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './styles.module.scss'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 import SortByAlphaIcon from '@mui/icons-material/SortByAlpha'
 import { useCategoryStore } from '@/entities/Category/model/store'
+import { generateFilter, updateProducts } from '@/entities/Category/model/helpers'
+import classNames from 'classnames'
 
 const CategoryHeader = () => {
-    const { sortOptions, setSortOptions } = useCategoryStore()
+    const {
+        setPage,
+        setTotal,
+        category,
+        setCategory,
+        sortOptions,
+        setSortOptions,
+        selectedProperties
+    } = useCategoryStore()
 
-    const handleSortChange = (name: string, ascending: boolean) => {
-        setSortOptions({ name, value: ascending })
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+
+    const handleSortChange = async (sort: 'name' | 'price', sortInverse: boolean) => {
+        setSortOptions({ sort, sortInverse })
+        setPage(1)
+
+        setIsLoading(true)
+
+        await updateProducts()
+
+        setIsLoading(false)
     }
 
     return (
         <div className={styles.header}>
             <div className={styles.part}>
                 <button
+                    disabled={isLoading}
                     className={styles.sortButton}
                     onClick={() => handleSortChange('price', true)}
                 >
                     <ArrowUpwardIcon
-                        className={
-                            sortOptions.name === 'price' && sortOptions.value ? styles.active : ''
-                        }
+                        className={classNames({
+                            [styles.active]: sortOptions.sort === 'price' && sortOptions.sortInverse
+                        })}
                     />
                 </button>
                 <button
+                    disabled={isLoading}
                     className={styles.sortButton}
                     onClick={() => handleSortChange('price', false)}
                 >
                     <ArrowDownwardIcon
-                        className={
-                            sortOptions.name === 'price' && !sortOptions.value ? styles.active : ''
-                        }
+                        className={classNames({
+                            [styles.active]:
+                                sortOptions.sort === 'price' && !sortOptions.sortInverse
+                        })}
                     />
                 </button>
                 <button
+                    disabled={isLoading}
                     className={styles.sortButton}
                     onClick={() => handleSortChange('name', true)}
                 >
                     <SortByAlphaIcon
-                        className={
-                            sortOptions.name === 'name' && sortOptions.value ? styles.active : ''
-                        }
+                        className={classNames({
+                            [styles.active]: sortOptions.sort === 'name' && sortOptions.sortInverse
+                        })}
                     />
                 </button>
                 <button
+                    disabled={isLoading}
                     className={styles.sortButton}
                     onClick={() => handleSortChange('name', false)}
                 >
                     <SortByAlphaIcon
-                        className={`${styles.inactive} ${sortOptions.name === 'name' && !sortOptions.value ? styles.active : ''}`}
+                        className={classNames(styles.inactive, {
+                            [styles.active]: sortOptions.sort === 'name' && !sortOptions.sortInverse
+                        })}
                         style={{ transform: 'rotate(180deg)' }}
                     />
                 </button>

@@ -2,18 +2,40 @@
   width: min(100%, 50rem);
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 3.5rem;
 }
 
 .fields,
 .horizontalFields {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 1.5rem;
 }
 
 .horizontalFields {
   @media (min-width: 992px) {
     flex-direction: row;
   }
+}
+
+.button {
+  height: fit-content !important;
+  padding: .75rem 1.5rem !important;
+  width: fit-content !important;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.notification {
+  border-top: .125rem solid var(--color-dark-transparent-10);
+  padding-top: 3.5rem;
+  font-weight: 540;
+  font-style: normal;
+  text-wrap: balance;
+  line-height: 160%;
+  letter-spacing: -0.025em;
 }

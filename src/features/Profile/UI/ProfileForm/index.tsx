@@ -24,63 +24,64 @@ import { useLanguage } from '@/app/providers/LanguageProvider'
 const localization = {
     save: {
         [Language.EN]: 'Save',
-        [Language.RU]: 'Сохранить',
-        [Language.TR]: 'Kaydet'
+        [Language.RU]: 'Сохранить'
     },
     logout: {
         [Language.EN]: 'Logout',
-        [Language.RU]: 'Выход',
-        [Language.TR]: 'Cikis Yap'
+        [Language.RU]: 'Выход'
     },
     name: {
         [Language.EN]: 'Name',
-        [Language.RU]: 'Имя',
-        [Language.TR]: 'Ad'
+        [Language.RU]: 'Имя'
     },
     lastName: {
         [Language.EN]: 'Last Name',
-        [Language.RU]: 'Фамилия',
-        [Language.TR]: 'Soyad'
+        [Language.RU]: 'Фамилия'
     },
-    phoneNumber: {
+    phone: {
         [Language.EN]: 'Phone number',
-        [Language.RU]: 'Номер телефона',
-        [Language.TR]: 'Telefon numarası'
+        [Language.RU]: 'Номер телефона'
     },
     password: {
         [Language.EN]: 'Password',
-        [Language.RU]: 'Пароль',
-        [Language.TR]: 'Sifre'
+        [Language.RU]: 'Пароль'
     },
     confirmPassword: {
         [Language.EN]: 'Confirm password',
-        [Language.RU]: 'Подтвердите пароль',
-        [Language.TR]: 'Sifreyi Onayla'
+        [Language.RU]: 'Подтвердите пароль'
     },
     language: {
         [Language.EN]: 'Language',
-        [Language.RU]: 'Язык',
-        [Language.TR]: 'Dil'
+        [Language.RU]: 'Язык'
     },
     profileUpdated: {
         [Language.EN]: 'Profile updated',
-        [Language.RU]: 'Профиль обновлен',
-        [Language.TR]: 'Profil bilgileri guncellendi'
+        [Language.RU]: 'Профиль обновлен'
     },
     updateFailed: {
         [Language.EN]: 'Profile update failed',
-        [Language.RU]: 'Профиль не обновлен',
-        [Language.TR]: 'Profil bilgileri guncellenemedi'
+        [Language.RU]: 'Профиль не обновлен'
     },
     passwordsDoNotMatch: {
         [Language.EN]: 'Passwords do not match',
-        [Language.RU]: 'Пароли не совпадают',
-        [Language.TR]: 'Sifreler ayni degildir'
+        [Language.RU]: 'Пароли не совпадают'
+    },
+    number: {
+        [Language.EN]: 'INN',
+        [Language.RU]: 'ИНН'
+    },
+    address: {
+        [Language.EN]: 'Address',
+        [Language.RU]: 'Адрес'
+    },
+    email: {
+        [Language.EN]: 'Email',
+        [Language.RU]: 'Электронная почта'
     }
 }
 
 const ProfileForm = () => {
-    const { user } = useAuthStore()
+    const { account } = useAuthStore()
 
     const { language, setLanguage } = useLanguage()
 
@@ -89,9 +90,8 @@ const ProfileForm = () => {
     const ProfileSchema = useMemo(
         () =>
             createObjectValidator({
-                firstName: createFieldValidator(language).isRequired(),
-                lastName: createFieldValidator(language).isRequired(),
-                phoneNumber: createFieldValidator(language).isRequired().isPhoneNumber(),
+                name: createFieldValidator(language).isRequired(),
+                phone: createFieldValidator(language).isRequired().isPhoneNumber(),
                 password: createFieldValidator(language),
                 confirmPassword: createFieldValidator(language).custom((value, values) => {
                     if (values.password && !value) {
@@ -103,7 +103,10 @@ const ProfileForm = () => {
                     }
 
                     return null
-                })
+                }),
+                number: createFieldValidator(language).isRequired().isNumber().min(10).max(12),
+                address: createFieldValidator(language).isRequired().min(5).max(100),
+                email: createFieldValidator(language).isRequired().isEmail().max(100)
             }),
         [language]
     )
@@ -125,14 +128,20 @@ const ProfileForm = () => {
         }
     }
 
+    if (!account) {
+        return null
+    }
+
     const { values, errors, handleSubmit, handleChange, isLoading } = useFormSubmit(
         {
             initialValues: {
-                firstName: user.firstName,
-                lastName: user.lastName,
-                phoneNumber: user.phoneNumber,
+                name: account.name,
+                phone: account.phone,
                 password: '',
-                confirmPassword: ''
+                confirmPassword: '',
+                number: account.number,
+                address: account.address,
+                email: account.email
             }
         },
         ProfileSchema,
@@ -141,62 +150,78 @@ const ProfileForm = () => {
 
     return (
         <div className={styles.wrapper}>
-            <div className={styles.fields}>
-                <Input
-                    label={localization.name[language]}
-                    value={values.firstName}
-                    hint={extractFieldError(errors, 'firstName')}
-                    isValid={!errors.firstName}
-                    onChange={(event) => handleChange('firstName', event.target.value)}
-                />
-                <Input
-                    label={localization.lastName[language]}
-                    value={values.lastName}
-                    hint={extractFieldError(errors, 'lastName')}
-                    isValid={!errors.lastName}
-                    onChange={(event) => handleChange('lastName', event.target.value)}
-                />
-                <Input
-                    label={`${localization.phoneNumber[language]} (+79005005050)`}
-                    value={values.phoneNumber}
-                    hint={extractFieldError(errors, 'phoneNumber')}
-                    isValid={!errors.phoneNumber}
-                    onChange={(event) => handleChange('phoneNumber', event.target.value)}
-                />
-                <div className={styles.horizontalFields}>
-                    <Input
-                        label={localization.password[language]}
-                        value={values.password}
-                        hint={extractFieldError(errors, 'password')}
-                        isValid={!errors.password}
-                        onChange={(event) => handleChange('password', event.target.value)}
-                        type='password'
-                    />
-                    <Input
-                        label={localization.confirmPassword[language]}
-                        value={values.confirmPassword}
-                        hint={extractFieldError(errors, 'confirmPassword')}
-                        isValid={!errors.confirmPassword}
-                        onChange={(event) => handleChange('confirmPassword', event.target.value)}
-                        type='password'
-                    />
-                </div>
-                {/* check it */}
+            <div className={styles.content}>
                 <div className={styles.fields}>
-                    <Select
-                        label={localization.language[language]}
-                        value={language}
-                        options={Object.values(Language).map((language) => ({
-                            name: language.toUpperCase(),
-                            value: language
-                        }))}
-                        onChange={(value) => setLanguage(value)}
+                    <Input
+                        label={localization.name[language]}
+                        value={values.name}
+                        hint={extractFieldError(errors, 'name')}
+                        isValid={!errors.name}
+                        onChange={(event) => handleChange('name', event.target.value)}
                     />
+                    <Input
+                        label={`${localization.phone[language]} (+79005005050)`}
+                        value={values.phone}
+                        hint={extractFieldError(errors, 'phone')}
+                        isValid={!errors.phone}
+                        onChange={(event) => handleChange('phone', event.target.value)}
+                    />
+                    <Input
+                        label={localization.number[language]}
+                        value={values.number}
+                        hint={extractFieldError(errors, 'number')}
+                        isValid={!errors.number}
+                        onChange={(event) => handleChange('number', event.target.value)}
+                    />
+                    <Input
+                        label={localization.address[language]}
+                        value={values.address}
+                        hint={extractFieldError(errors, 'address')}
+                        isValid={!errors.address}
+                        onChange={(event) => handleChange('address', event.target.value)}
+                    />
+                    <Input
+                        label={localization.email[language]}
+                        value={values.email}
+                        hint={extractFieldError(errors, 'email')}
+                        isValid={!errors.email}
+                        onChange={(event) => handleChange('email', event.target.value)}
+                        type='email'
+                    />
+                    <div className={styles.horizontalFields}>
+                        <Input
+                            label={localization.password[language]}
+                            value={values.password}
+                            hint={extractFieldError(errors, 'password')}
+                            isValid={!errors.password}
+                            onChange={(event) => handleChange('password', event.target.value)}
+                            type='password'
+                        />
+                        <Input
+                            label={localization.confirmPassword[language]}
+                            value={values.confirmPassword}
+                            hint={extractFieldError(errors, 'confirmPassword')}
+                            isValid={!errors.confirmPassword}
+                            onChange={(event) =>
+                                handleChange('confirmPassword', event.target.value)
+                            }
+                            type='password'
+                        />
+                    </div>
                 </div>
+                <Button
+                    className={styles.button}
+                    isLoading={isLoading}
+                    onClick={() => handleSubmit()}
+                >
+                    {localization.save[language]}
+                </Button>
             </div>
-            <Button isLoading={isLoading} onClick={() => handleSubmit()}>
-                {localization.save[language]}
-            </Button>
+            <div className={styles.notification}>
+                Уважаемый клиент! Обращаем Ваше внимание, что в связи с волатильностью курса валют и
+                частым изменением цен у производителей, цены на сайте могут отличаться. Актуальная
+                цена указана в коммерческом предложении. Спасибо за понимание!
+            </div>
         </div>
     )
 }
