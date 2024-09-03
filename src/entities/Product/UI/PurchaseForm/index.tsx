@@ -4,12 +4,20 @@ import styles from './styles.module.scss'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import RemoveIcon from '@mui/icons-material/Remove'
 import AddIcon from '@mui/icons-material/Add'
+import { determinePrice } from '@/shared/helpers/determinePrice'
+import { IProduct } from '@/entities/Product/model/types'
+import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
+import { useRouter } from 'next/navigation'
 
 interface Props {
-    productId: number
+    product: IProduct
 }
 
-const PurchaseForm = ({ productId }: Props) => {
+const PurchaseForm = ({ product }: Props) => {
+    const { account } = useAuthStore()
+
+    const router = useRouter()
+
     const [quantity, setQuantity] = useState<number>(0)
     const maxQuantity = 500
     const addIntervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -35,7 +43,15 @@ const PurchaseForm = ({ productId }: Props) => {
     }
 
     const handleAddToCart = () => {
-        console.log(`Product ID: ${productId}, Quantity: ${quantity}`)
+        if (!account) {
+            router.push('/login')
+
+            return
+        }
+
+        const price = determinePrice(product.prices, account.priceName)
+
+        console.log(`Product ID: ${product.id}, Quantity: ${quantity}`)
     }
 
     const startAdd = () => {
@@ -67,7 +83,7 @@ const PurchaseForm = ({ productId }: Props) => {
 
     return (
         <div className={styles.wrapper}>
-            <button className={styles.button} onClick={handleAddToCart}>
+            <button className={styles.button} onClick={() => handleAddToCart()}>
                 <ShoppingCartIcon style={{ fontSize: 24 }} />
             </button>
             <div className={styles.meta}>

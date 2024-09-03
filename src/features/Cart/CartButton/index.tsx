@@ -9,7 +9,7 @@ const CartButton = () => {
     const router = useRouter()
 
     return (
-        <button className={styles.button} onClick={() => router.push('/profile')}>
+        <button className={styles.button} onClick={() => router.push('/cart')}>
             <ShoppingCartIcon style={{ fontSize: 26 }} />
         </button>
     )

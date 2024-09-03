@@ -4,20 +4,16 @@ import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
 export interface IProfileUpdateData {
     name?: string
     phone?: string
+    number?: string
+    address?: string
+    email?: string
     password?: string
     confirmPassword?: string
 }
 
 export const updateProfile = async (profileData: IProfileUpdateData) => {
     try {
-        const { account } = useAuthStore.getState()
-
-        if (!account) return
-
-        const { data } = await axiosInstance.post('/update', {
-            ...profileData,
-            number: account.number
-        })
+        const { data } = await axiosInstance.post('/update', profileData)
 
         return data
     } catch (error) {

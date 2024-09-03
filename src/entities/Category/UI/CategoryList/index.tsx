@@ -6,7 +6,7 @@ import Link from 'next/link'
 const CategoryList = () => {
     const { category, depth } = useCategoryStore()
 
-    if (!category || !category.children || depth === 3) return
+    if (!category || !category.children || depth === 2) return
 
     return (
         <div className={styles.links}>

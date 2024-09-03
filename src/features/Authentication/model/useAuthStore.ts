@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { PriceName } from '@/entities/Price/model/types'
 
 export interface ICart {
     id: number
@@ -13,7 +14,6 @@ export interface IAccount {
     externalId: string
     number: number
     name: string
-    priceName: string
     phone: string
     passwordHash: string
     address: string
@@ -21,6 +21,7 @@ export interface IAccount {
     createdAt: string
     updatedAt: string
     orders: any[]
+    priceName: PriceName
     cart: ICart
 }
 
