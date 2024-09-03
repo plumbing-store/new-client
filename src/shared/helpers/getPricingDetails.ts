@@ -2,7 +2,7 @@ import { IPrice, PriceName } from '@/entities/Price/model/types'
 import { determinePrice } from '@/shared/helpers/determinePrice'
 
 interface PricingDetails {
-    currentPrice: number | null
+    currentPrice: number
     basePrice: number | null
 }
 

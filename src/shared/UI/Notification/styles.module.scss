@@ -6,10 +6,11 @@
   right: 1rem;
   padding: 1rem 1.5rem;
   font-size: 1rem;
+  font-weight: 550;
   color: rgba(255, 255, 255, .75);
   background-color: rgba(0, 0, 0, .75);
   backdrop-filter: blur(.5rem);
-  border-radius: .5rem;
+  border-radius: 1.25rem;
   transition: opacity 500ms ease, visibility 500ms ease;
   z-index: 1000;
 }

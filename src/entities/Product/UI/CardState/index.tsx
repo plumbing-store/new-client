@@ -6,10 +6,13 @@ import { determinePrice } from '@/shared/helpers/determinePrice'
 import { PriceName } from '@/entities/Price/model/types'
 import { getPricingDetails } from '@/shared/helpers/getPricingDetails'
 import PurchaseForm from '@/entities/Product/UI/PurchaseForm'
+import { formatPrice } from '@/shared/helpers/formatPrice'
 
 interface Props extends IProduct {}
 
-const CardState = ({ id, image, name, sku, prices }: Props) => {
+const CardState = (props: Props) => {
+    const { prices, image, name, sku } = props
+
     const pricingDetails = getPricingDetails(prices, PriceName.BASE_10)
 
     return (
@@ -34,13 +37,15 @@ const CardState = ({ id, image, name, sku, prices }: Props) => {
             </div>
             <div className={styles.cell}>
                 <div className={styles.price}>
-                    <div className={styles.current}>{pricingDetails.currentPrice} ₽</div>
+                    <div className={styles.current}>
+                        {formatPrice(pricingDetails.currentPrice)} ₽
+                    </div>
                     {pricingDetails.basePrice && (
-                        <div className={styles.base}>{pricingDetails.basePrice}</div>
+                        <div className={styles.base}>{formatPrice(pricingDetails.basePrice)}</div>
                     )}
                 </div>
             </div>
-            <PurchaseForm productId={id} />
+            <PurchaseForm product={props} />
         </div>
     )
 }

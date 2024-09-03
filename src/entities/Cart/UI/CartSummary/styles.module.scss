@@ -1,0 +1,13 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+
+  gap: .5rem;
+}
+
+.total {
+  font-size: .875rem;
+  font-weight: 650;
+  width: 5rem;
+  white-space: nowrap;
+}

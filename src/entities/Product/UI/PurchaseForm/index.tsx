@@ -8,13 +8,16 @@ import { determinePrice } from '@/shared/helpers/determinePrice'
 import { IProduct } from '@/entities/Product/model/types'
 import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
 import { useRouter } from 'next/navigation'
+import { notify } from '@/shared/helpers/notify'
+import { NotificationStatus } from '@/shared/store/notification'
+import { updateCart } from '@/entities/Cart/api/updateCart'
 
 interface Props {
     product: IProduct
 }
 
 const PurchaseForm = ({ product }: Props) => {
-    const { account } = useAuthStore()
+    const { account, setAccount } = useAuthStore()
 
     const router = useRouter()
 
@@ -35,14 +38,20 @@ const PurchaseForm = ({ product }: Props) => {
         }
     }
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = parseInt(e.target.value, 10)
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(event.target.value, 10)
         if (!isNaN(value) && value >= 0 && value <= maxQuantity) {
             setQuantity(value)
         }
     }
 
-    const handleAddToCart = () => {
+    const handleAddToCart = async () => {
+        if (!quantity) {
+            notify(NotificationStatus.Danger, 'Количество не выбрано')
+
+            return
+        }
+
         if (!account) {
             router.push('/login')
 
@@ -51,7 +60,26 @@ const PurchaseForm = ({ product }: Props) => {
 
         const price = determinePrice(product.prices, account.priceName)
 
-        console.log(`Product ID: ${product.id}, Quantity: ${quantity}`)
+        const cart = await updateCart(account.cart.id, product.id, price.id, quantity)
+
+        if (!cart) {
+            notify(NotificationStatus.Danger, 'Не удалось добавить в корзину')
+
+            return
+        }
+
+        setAccount((prevState) => {
+            if (prevState === null) {
+                throw new Error('Account should not be null')
+            }
+
+            return {
+                ...prevState,
+                cart
+            }
+        })
+
+        setQuantity(0)
     }
 
     const startAdd = () => {
@@ -81,9 +109,19 @@ const PurchaseForm = ({ product }: Props) => {
         }
     }
 
+    const onClick = () => {
+        handleAddToCart()
+    }
+
+    const onKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === 'Enter') {
+            handleAddToCart()
+        }
+    }
+
     return (
         <div className={styles.wrapper}>
-            <button className={styles.button} onClick={() => handleAddToCart()}>
+            <button className={styles.button} onClick={onClick}>
                 <ShoppingCartIcon style={{ fontSize: 24 }} />
             </button>
             <div className={styles.meta}>
@@ -100,6 +138,7 @@ const PurchaseForm = ({ product }: Props) => {
                     type='number'
                     value={quantity}
                     onChange={handleInputChange}
+                    onKeyDown={onKeyDown}
                     placeholder='0'
                     min={0}
                     max={maxQuantity}

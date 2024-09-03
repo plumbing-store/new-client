@@ -47,7 +47,7 @@ const LanguageProvider = ({ children }: Props) => {
     }, [language])
 
     return (
-        <LanguageContext.Provider value={{ language: language || Language.EN, setLanguage }}>
+        <LanguageContext.Provider value={{ language: language || Language.RU, setLanguage }}>
             {children}
         </LanguageContext.Provider>
     )

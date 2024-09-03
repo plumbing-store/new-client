@@ -14,13 +14,13 @@
 .desktop {
   display: none;
 
-  @media (min-width: 576px) {
+  @media (min-width: 768px) {
     display: flex;
   }
 }
 
 .mobile {
-  @media (min-width: 576px) {
+  @media (min-width: 768px) {
     display: none;
   }
 }

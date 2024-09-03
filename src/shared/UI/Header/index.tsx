@@ -12,7 +12,8 @@ import { useLanguage } from '@/app/providers/LanguageProvider'
 import Search from '@/features/Search/UI'
 import HeaderNav from '@/widgets/HeaderNav/UI'
 import HeaderContacts from '@/widgets/HeaderContacts/UI'
-import CartButton from '@/features/Cart/CartButton'
+import CartButton from '../../../features/Cart/UI/CartButton'
+import CartSummary from '@/entities/Cart/UI/CartSummary'
 
 const Header = () => {
     return (
@@ -28,7 +29,7 @@ const Header = () => {
 
                         <div className={styles.buttons}>
                             <ProfileButton />
-                            <CartButton />
+                            <CartSummary />
                         </div>
                     </div>
                     <div className={styles.menuButtonWrapper}>

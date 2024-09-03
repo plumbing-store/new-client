@@ -9,7 +9,7 @@
 
   transition: 200ms all ease-in-out;
 
-  &:hover {
+  &:not(.active):hover {
     color: var(--color-tertiary);
   }
 }

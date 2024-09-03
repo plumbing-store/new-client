@@ -1,11 +1,11 @@
 import React from 'react'
 import Wrapper from '@/shared/UI/Wrapper'
-import ProfileForm from '@/features/Profile/UI/ProfileForm'
+import ProfilePanel from '@/features/Profile/UI/ProfilePanel'
 
 const Profile = () => {
     return (
         <Wrapper>
-            <ProfileForm />
+            <ProfilePanel />
         </Wrapper>
     )
 }
