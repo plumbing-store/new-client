@@ -6,17 +6,15 @@ import SortByAlphaIcon from '@mui/icons-material/SortByAlpha'
 import { useCategoryStore } from '@/entities/Category/model/store'
 import { generateFilter, updateProducts } from '@/entities/Category/model/helpers'
 import classNames from 'classnames'
+import GridIcon from '@/shared/UI/Icons/GridIcon'
+import ListCheck from '@/shared/UI/Icons/ListCheck'
+import ListIndefinite from '@/shared/UI/Icons/ListIndefinite'
+import { DisplayState } from '@/entities/Product/model/types'
+import Tooltip from '@/shared/UI/Tooltip'
 
 const CategoryHeader = () => {
-    const {
-        setPage,
-        setTotal,
-        category,
-        setCategory,
-        sortOptions,
-        setSortOptions,
-        selectedProperties
-    } = useCategoryStore()
+    const { displayState, setDisplayState, setPage, sortOptions, setSortOptions } =
+        useCategoryStore()
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -31,8 +29,49 @@ const CategoryHeader = () => {
         setIsLoading(false)
     }
 
+    const handleClick = (displayState: DisplayState) => {
+        console.log(displayState)
+
+        setDisplayState(displayState)
+    }
+
+    const buttonsConfig = [
+        {
+            icon: <GridIcon />,
+            value: 'Отображение в виде сетки',
+            displayState: DisplayState.Grid
+        },
+        {
+            icon: <ListCheck />,
+            value: 'Отображение в виде списка',
+            displayState: DisplayState.List
+        },
+        {
+            icon: <ListIndefinite />,
+            value: 'Отображение в виде карточек',
+            displayState: DisplayState.Card
+        }
+    ]
+
     return (
         <div className={styles.header}>
+            <div className={styles.part}>
+                {buttonsConfig.map(({ icon, value, displayState: state }, index) => {
+                    return (
+                        <Tooltip text={value}>
+                            <button
+                                key={index}
+                                className={classNames(styles.button, {
+                                    [styles.active]: state === displayState
+                                })}
+                                onClick={() => handleClick(state)}
+                            >
+                                {icon}
+                            </button>
+                        </Tooltip>
+                    )
+                })}
+            </div>
             <div className={styles.part}>
                 <button
                     disabled={isLoading}

@@ -10,13 +10,13 @@ import { PriceName } from '@/entities/Price/model/types'
 import { getPricingDetails } from '@/shared/helpers/getPricingDetails'
 import Prices from '@/shared/UI/Prices/UI'
 import PurchaseForm from '@/entities/Product/UI/PurchaseForm'
+import Breadcrumbs from '@/shared/UI/Breadcrumbs'
 
 interface Props {
     product: IProduct
-    breadcrumbs: any
 }
 
-const ProductWidget = ({ product, breadcrumbs }: Props) => {
+const ProductWidget = ({ product }: Props) => {
     const { name, image, prices } = product
 
     const { account } = useAuthStore()
@@ -27,6 +27,7 @@ const ProductWidget = ({ product, breadcrumbs }: Props) => {
 
     return (
         <div className={styles.wrapper}>
+            <Breadcrumbs breadcrumbs={product.breadcrumbs} />
             <div className={styles.panel}>
                 {image && (
                     <Image

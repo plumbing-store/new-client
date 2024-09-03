@@ -11,8 +11,12 @@ interface Props extends PricingDetails {
 const Prices = ({ currentPrice, basePrice, isBase = false }: Props) => {
     return (
         <div className={classNames(styles.price, { [styles.isBase]: isBase })}>
-            <div className={styles.current}>{formatPrice(currentPrice)} ₽</div>
-            {basePrice && <div className={styles.base}>{formatPrice(basePrice)}</div>}
+            <div className={styles.current}>{formatPrice(Number(currentPrice.toFixed(2)))} ₽</div>
+            {basePrice ? (
+                <div className={styles.base}>{formatPrice(Number(basePrice.toFixed(2)))}</div>
+            ) : (
+                ''
+            )}
         </div>
     )
 }

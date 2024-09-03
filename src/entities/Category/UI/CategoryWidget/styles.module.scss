@@ -12,7 +12,7 @@
   gap: 1.5rem;
 
   @media (min-width: 992px) {
-    flex-direction: row;
+    flex-direction: row-reverse;
   }
 }
 
@@ -27,6 +27,8 @@
   flex-direction: column;
 
   gap: 2.5rem;
+
+  flex: 1;
 }
 
 .panel {

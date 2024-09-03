@@ -2,13 +2,12 @@ import React from 'react'
 import { IProduct } from '@/entities/Product/model/types'
 import Image from 'next/image'
 import styles from './styles.module.scss'
-import { formatPrice } from '@/shared/helpers/formatPrice'
-import PurchaseForm from '@/entities/Product/UI/PurchaseForm'
-import { IPrice } from '@/entities/Price/model/types'
-import DeleteIcon from '@mui/icons-material/Delete'
 import { deleteProduct } from '@/entities/Cart/api/deleteProduct'
+import { updateCart } from '@/entities/Cart/api/updateCart'
 import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
 import Prices from '@/shared/UI/Prices/UI'
+import DeleteIcon from '@mui/icons-material/Delete'
+import QuantitySelector from '@/shared/UI/QuantitySelector/UI'
 
 interface Props {
     quantity: number
@@ -21,9 +20,10 @@ interface Props {
 
 const CartItem = ({ product, priceId, price, oldPrice, quantity, total }: Props) => {
     const { account, setAccount } = useAuthStore()
+    const maxQuantity = 500000000
 
     if (!account) {
-        return
+        return null
     }
 
     const pricingDetails = {
@@ -32,18 +32,13 @@ const CartItem = ({ product, priceId, price, oldPrice, quantity, total }: Props)
             basePrice: oldPrice
         },
         total: {
-            currentPrice: total,
+            currentPrice: price * quantity,
             basePrice: oldPrice * quantity
         }
     }
 
-    const hasDiscount = oldPrice && oldPrice > price
-
     const onRemove = async () => {
-        const cart = await deleteProduct(account.cart.id, {
-            productId: product.id,
-            priceId
-        })
+        const cart = await deleteProduct(account.cart.id, { productId: product.id, priceId })
 
         if (!cart) {
             return
@@ -54,13 +49,35 @@ const CartItem = ({ product, priceId, price, oldPrice, quantity, total }: Props)
                 throw new Error('Account should not be null')
             }
 
-            console.log(prevState.cart)
-
             return {
                 ...prevState,
                 cart: {
                     ...prevState.cart,
                     data: prevState.cart.data.filter((item: any) => item.product.id !== product.id)
+                }
+            }
+        })
+    }
+
+    const updateQuantity = async (newQuantity: number) => {
+        setAccount((prevState) => {
+            if (prevState === null) {
+                throw new Error('Account should not be null')
+            }
+
+            return {
+                ...prevState,
+                cart: {
+                    ...prevState.cart,
+                    data: prevState.cart.data.map((item: any) => {
+                        if (item.product.id === product.id) {
+                            return {
+                                ...item,
+                                quantity: newQuantity
+                            }
+                        }
+                        return item
+                    })
                 }
             }
         })
@@ -83,9 +100,11 @@ const CartItem = ({ product, priceId, price, oldPrice, quantity, total }: Props)
                     <p className={styles.sku}>{product.sku}</p>
                 </div>
             </div>
-            <div className={styles.cell}>
-                <div className={styles.quantity}>{quantity}</div>
-            </div>
+            <QuantitySelector
+                quantity={quantity}
+                setQuantity={updateQuantity}
+                maxQuantity={maxQuantity}
+            />
             <div className={styles.cells}>
                 <div className={styles.cell}>
                     <Prices {...pricingDetails.price} />

@@ -1,0 +1,53 @@
+.meta {
+  display: flex;
+  align-items: center;
+
+  gap: .5rem;
+}
+
+.circle {
+  width: 1.85rem;
+  height: 1.85rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 200ms all ease-in-out;
+
+  cursor: pointer;
+
+
+  border-radius: 50%;
+
+  aspect-ratio: 1 / 1;
+
+  & * {
+    transition: 50ms all ease-in-out;
+
+    color: var(--color-dark-transparent-50);
+  }
+
+  &:hover {
+    background-color: var(--color-primary-transparent-5);
+
+    & * {
+      color: var(--color-primary-transparent-50);
+    }
+  }
+}
+
+.input {
+  text-align: center;
+  cursor: pointer;
+
+  color: var(--color-dark-transparent-80);
+  font-size: 1.25rem;
+  font-weight: 700;
+  width: 2.75rem;
+  text-overflow: ellipsis;
+
+  &:focus {
+    color: var(--color-tertiary);
+  }
+}

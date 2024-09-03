@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { ICategory } from '@/entities/Category/model/types'
+import { DisplayState } from '@/entities/Product/model/types'
 
 export interface IProperty {
     id: number
@@ -47,6 +48,9 @@ interface ICategoryState {
                   sortInverse: boolean
               })
     ) => void
+
+    displayState: DisplayState
+    setDisplayState: (displayState: DisplayState) => void
 }
 
 export const useCategoriesStore = create<ICategoriesState>((set) => ({
@@ -58,6 +62,9 @@ export const useCategoryStore = create<ICategoryState>((set) => ({
     category: {} as ICategory,
     setCategory: (value) =>
         set((state) => ({ category: typeof value === 'function' ? value(state.category) : value })),
+
+    displayState: DisplayState.Card,
+    setDisplayState: (displayState) => set({ displayState }),
 
     properties: [],
     setProperties: (properties) => set({ properties }),

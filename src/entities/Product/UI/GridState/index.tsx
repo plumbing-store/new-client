@@ -12,14 +12,16 @@ import Prices from '@/shared/UI/Prices/UI'
 
 interface Props extends IProduct {}
 
-const CardState = (props: Props) => {
-    const { prices, image, name, sku, vendorSku } = props
+const GridState = (props: Props) => {
+    const { prices, image, name, sku } = props
 
     const { account } = useAuthStore()
 
     const base = account ? account.priceName : PriceName.UNAUTHORIZED
 
     if (prices.length === 0) {
+        console.log(props)
+
         return
     }
 
@@ -38,14 +40,12 @@ const CardState = (props: Props) => {
                     />
                 )}
                 <div className={styles.meta}>
-                    <h3 className={styles.name}>{name}</h3>
                     <p className={styles.sku}>{sku}</p>
+                    <h3 className={styles.name}>{name}</h3>
                 </div>
             </div>
             <div className={styles.cell}>
                 <div className={styles.quantity}>В наличии</div>
-            </div>
-            <div className={styles.cell}>
                 <Prices {...pricingDetails} />
             </div>
             <PurchaseForm product={props} />
@@ -53,4 +53,4 @@ const CardState = (props: Props) => {
     )
 }
 
-export default CardState
+export default GridState

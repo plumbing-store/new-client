@@ -13,16 +13,22 @@ const CartInfo = () => {
     }
 
     const quantity = account.cart.data.reduce((acc, item) => acc + item.quantity, 0)
-    const sum = account.cart.data.reduce((acc, item) => acc + item.total, 0)
+    const sum = account.cart.data.reduce(
+        (acc, item) => acc + Number((item.quantity * item.price.price).toFixed(2)),
+        0
+    )
     const discount = account.cart.data.reduce(
-        (acc, item) => acc + item.oldPrice.price * item.quantity - item.price.price * item.quantity,
+        (acc, item) =>
+            acc +
+            item.oldPrice.price * item.quantity -
+            Number((item.price.price * item.quantity).toFixed(2)),
         0
     )
 
     const items = [
         { name: 'Товаров', value: quantity },
-        { name: 'Сумма', value: formatPrice(Math.round(sum)) },
-        { name: 'Скидка', value: formatPrice(Math.round(discount)) }
+        { name: 'Сумма', value: formatPrice(Number(sum.toFixed(2))) },
+        { name: 'Скидка', value: formatPrice(Number(discount.toFixed(2))) }
     ]
 
     return (

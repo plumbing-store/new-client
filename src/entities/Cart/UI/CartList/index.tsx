@@ -16,17 +16,24 @@ const CartList = () => {
     const items = account.cart.data
 
     return (
-        <div className={styles.list}>
-            {items.map((item) => {
-                const props = {
-                    ...item,
-                    priceId: item.price.id,
-                    price: item.price.price,
-                    oldPrice: item.oldPrice.price
-                }
+        <div className={styles.wrapper}>
+            <div className={styles.panel}>
+                <div className={styles.cell}>Изображение, название и артикул</div>
+                <div className={styles.cell}>Количество</div>
+                <div className={styles.cell}>Цена (штучно и всего)</div>
+            </div>
+            <div className={styles.list}>
+                {items.map((item) => {
+                    const props = {
+                        ...item,
+                        priceId: item.price.id,
+                        price: item.price.price,
+                        oldPrice: item.oldPrice.price
+                    }
 
-                return <CartItem {...props} />
-            })}
+                    return <CartItem {...props} />
+                })}
+            </div>
         </div>
     )
 }

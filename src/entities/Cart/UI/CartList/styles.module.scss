@@ -1,3 +1,37 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  gap: .5rem;
+
+  flex: 1;
+}
+
+.panel {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: grid;
+
+    background: rgb(255, 255, 255);
+
+    border-radius: .5rem;
+    padding: .75rem;
+
+    grid-template-columns: 5fr 1fr 3fr 1fr;
+
+    & .cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: .875rem;
+      font-weight: 560;
+
+      color: var(--color-dark-transparent-60);
+    }
+  }
+}
+
 .list {
   flex: 1;
 

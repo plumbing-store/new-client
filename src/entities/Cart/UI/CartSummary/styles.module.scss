@@ -16,6 +16,8 @@
 }
 
 .total {
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: .875rem;
   font-weight: 650;
   width: 5rem;

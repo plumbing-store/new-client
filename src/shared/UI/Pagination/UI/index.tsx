@@ -61,21 +61,6 @@ const Pagination = ({
 
     return (
         <div className={styles.pagination}>
-            <div className={styles.pageNumbers}>
-                {getPageNumbers().map((page, index) => (
-                    <button
-                        key={index}
-                        className={`${styles.pageButton} ${localPage === page ? styles.active : ''}`}
-                        onClick={() =>
-                            typeof page === 'number'
-                                ? handlePageChange(page)
-                                : handlePageChange(totalPages)
-                        }
-                    >
-                        {page}
-                    </button>
-                ))}
-            </div>
             <div className={styles.arrows}>
                 <button
                     className={styles.pageButton}
@@ -91,6 +76,21 @@ const Pagination = ({
                 >
                     &lt;
                 </button>
+                <div className={styles.pageNumbers}>
+                    {getPageNumbers().map((page, index) => (
+                        <button
+                            key={index}
+                            className={`${styles.pageButton} ${localPage === page ? styles.active : ''}`}
+                            onClick={() =>
+                                typeof page === 'number'
+                                    ? handlePageChange(page)
+                                    : handlePageChange(totalPages)
+                            }
+                        >
+                            {page}
+                        </button>
+                    ))}
+                </div>
                 <button
                     className={styles.pageButton}
                     onClick={() => handlePageChange(Math.min(totalPages, localPage + 1))}

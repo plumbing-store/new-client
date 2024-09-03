@@ -18,9 +18,13 @@ const Category = async ({ params }: { params: { slug: string } }) => {
         return <div>No properties</div>
     }
 
-    // if (depth === 0) {
-    //     return <div>Subcategory list</div>
-    // }
+    if (depth === 0) {
+        return (
+            <Wrapper>
+                <Subcategories />
+            </Wrapper>
+        )
+    }
 
     return (
         <Wrapper>

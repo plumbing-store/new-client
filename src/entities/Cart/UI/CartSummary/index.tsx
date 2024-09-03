@@ -11,7 +11,7 @@ const CartSummary = () => {
 
     const total = account
         ? account.cart.data.reduce((acc, item) => {
-              return acc + Math.round(item.total)
+              return acc + Number((item.price.price * item.quantity).toFixed(2))
           }, 0)
         : 0
 

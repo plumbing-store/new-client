@@ -5,6 +5,11 @@ interface IProperty {
     value: string
 }
 
+export interface IBreadcrumb {
+    name: string
+    slug: string
+}
+
 export interface IProduct {
     id: number
     name: string
@@ -19,12 +24,13 @@ export interface IProduct {
     set: any | null
     createdAt: string
     updatedAt: string
+    breadcrumbs: IBreadcrumb[]
     properties: IProperty[]
     prices: IPrice[]
 }
 
 export enum DisplayState {
-    Grid = 'Grid',
-    List = 'List',
-    Card = 'Card'
+    Grid = 'grid',
+    List = 'list',
+    Card = 'сard'
 }

@@ -5,6 +5,8 @@
   padding: 1.5rem 0;
 
   & .current {
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-weight: 550;
     font-size: 1.15rem;
   }
