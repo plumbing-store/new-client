@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import CartButton from '@/features/Cart/UI/CartButton'
 import styles from './styles.module.scss'

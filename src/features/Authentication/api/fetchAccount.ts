@@ -8,6 +8,6 @@ export const fetchAccount = async () => {
 
         return data
     } catch (error) {
-        throw new Error('Error receiving the account')
+        throw new Error('Error receiving the account:')
     }
 }

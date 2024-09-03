@@ -17,6 +17,6 @@ export const updateProfile = async (profileData: IProfileUpdateData) => {
 
         return data
     } catch (error) {
-        throw new Error('Error updating profile')
+        throw new Error('Error updating profile:')
     }
 }

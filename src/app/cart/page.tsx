@@ -1,17 +1,11 @@
-'use client'
-
 import React from 'react'
 import Wrapper from '@/shared/UI/Wrapper'
-import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
+import CartWidget from '@/entities/Cart/UI/CartWidget'
 
 const Cart = () => {
-    const { account } = useAuthStore()
-
-    if (!account) return
-
     return (
         <Wrapper>
-            <div></div>
+            <CartWidget />
         </Wrapper>
     )
 }

@@ -77,6 +77,11 @@ const Navbar = () => {
             variants={variants}
             transition={{ duration: 0.5 }}
         >
+            <div className={styles.head}>
+                <h3>
+                    Сантехпр<span>💧</span>ф
+                </h3>
+            </div>
             <nav className={styles.navbar}>
                 <div className={styles.top}>{/* Logo or any top content */}</div>
                 <div className={styles.items}>

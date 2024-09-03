@@ -1,9 +1,7 @@
 export const formatQuantity = (value: string): string => {
-    let formattedValue = value.replace(/^0+(?=\d)/, '')
+    let formattedValue = value.replace(/[^\d]/g, '')
 
-    if (formattedValue.startsWith('-')) {
-        formattedValue = formattedValue.replace('-', '')
-    }
+    formattedValue = formattedValue.replace(/^0+(?=\d)/, '')
 
     return formattedValue
 }

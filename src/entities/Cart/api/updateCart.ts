@@ -15,6 +15,6 @@ export const updateCart = async (
 
         return data
     } catch (error) {
-        console.log('Error updating cart', error)
+        console.log('Error updating cart:', error)
     }
 }

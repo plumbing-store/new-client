@@ -7,13 +7,18 @@ import { PriceName } from '@/entities/Price/model/types'
 import { getPricingDetails } from '@/shared/helpers/getPricingDetails'
 import PurchaseForm from '@/entities/Product/UI/PurchaseForm'
 import { formatPrice } from '@/shared/helpers/formatPrice'
+import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
 
 interface Props extends IProduct {}
 
 const CardState = (props: Props) => {
     const { prices, image, name, sku } = props
 
-    const pricingDetails = getPricingDetails(prices, PriceName.BASE_10)
+    const { account } = useAuthStore()
+
+    const base = account ? account.priceName : PriceName.UNAUTHORIZED
+
+    const pricingDetails = getPricingDetails(prices, base)
 
     return (
         <div className={styles.wrapper}>

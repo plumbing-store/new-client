@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import { notify } from '@/shared/helpers/notify'
 import { NotificationStatus } from '@/shared/store/notification'
 import { updateCart } from '@/entities/Cart/api/updateCart'
+import { formatQuantity } from '@/shared/helpers/formatQuantity'
 
 interface Props {
     product: IProduct
@@ -38,8 +39,11 @@ const PurchaseForm = ({ product }: Props) => {
         }
     }
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = parseInt(event.target.value, 10)
+    const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Number(formatQuantity(event.target.value))
+
+        console.log(value)
+
         if (!isNaN(value) && value >= 0 && value <= maxQuantity) {
             setQuantity(value)
         }
@@ -59,6 +63,8 @@ const PurchaseForm = ({ product }: Props) => {
         }
 
         const price = determinePrice(product.prices, account.priceName)
+
+        console.log(price, account.priceName)
 
         const cart = await updateCart(account.cart.id, product.id, price.id, quantity)
 
@@ -137,7 +143,7 @@ const PurchaseForm = ({ product }: Props) => {
                     className={styles.input}
                     type='number'
                     value={quantity}
-                    onChange={handleInputChange}
+                    onChange={onInputChange}
                     onKeyDown={onKeyDown}
                     placeholder='0'
                     min={0}

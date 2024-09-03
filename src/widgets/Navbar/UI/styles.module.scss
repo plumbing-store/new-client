@@ -112,6 +112,17 @@
   align-items: center;
 }
 
+.head {
+  padding: 3.5rem 0 1.25rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
 .negative {
   color: var(--color-danger);
 }
@@ -128,3 +139,7 @@
 //    background: var(--additional-color-5);
 //  }
 //}
+
+.head {
+  color: black;
+}

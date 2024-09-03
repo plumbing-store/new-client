@@ -1,0 +1,87 @@
+.wrapper {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: center;
+  align-items: center;
+
+  background: rgb(255, 255, 255);
+
+  border-radius: .75rem;
+
+  grid-template-columns: 1fr;
+
+  @media (min-width: 600px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: 5fr 1fr 3fr 1fr;
+  }
+}
+
+.head {
+  display: flex;
+  align-items: center;
+
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.image {
+  width: 5.5rem;
+  height: 5.5rem;
+
+  object-position: center;
+  object-fit: cover;
+
+  aspect-ratio: 1 / 1;
+}
+
+.name {
+  font-size: 1.00rem;
+  font-weight: 550;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 2.5rem;
+
+  font-weight: 550;
+}
+
+.price {
+  position: relative;
+
+  & .current {
+    font-size: 1.15rem;
+  }
+
+  & .base {
+    color: var(--color-danger-transparent-70);
+
+    font-size: .65rem;
+    font-weight: 800;
+
+    position: absolute;
+    text-decoration: line-through;
+
+    top: -70%;
+    right: -10%;
+  }
+}
+
+.quantity {
+  color: var(--color-primary-transparent-75);
+
+  font-size: .875rem;
+}
+
+.cells {
+  display: flex;
+  align-items: center;
+
+  gap: 1.5rem;
+}
