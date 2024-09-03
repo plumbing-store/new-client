@@ -1,7 +1,7 @@
 import { IPrice, PriceName } from '@/entities/Price/model/types'
 import { determinePrice } from '@/shared/helpers/determinePrice'
 
-interface PricingDetails {
+export interface PricingDetails {
     currentPrice: number
     basePrice: number | null
 }

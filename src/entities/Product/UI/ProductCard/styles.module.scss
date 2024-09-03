@@ -4,4 +4,11 @@
   border-radius: .75rem;
 
   overflow: hidden;
+  cursor: pointer;
+
+  transition: 100ms all ease-in-out;
+
+  &:hover {
+    scale: 1.005;
+  }
 }

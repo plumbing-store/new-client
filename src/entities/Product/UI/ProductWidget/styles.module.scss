@@ -1,0 +1,65 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.5rem;
+}
+
+.heading {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.panel {
+  border-radius: 1.15rem;
+
+  overflow: hidden;
+
+  background: rgb(255, 255, 255);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.property {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  max-width: 30rem;
+}
+
+.name {
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.image {
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: min(100%, 25rem);
+  }
+}
+
+.value {
+  font-weight: 650;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.5rem;
+  padding: 1.25rem;
+
+  @media (min-width: 1600px) {
+    gap: 3.5rem;
+  }
+}

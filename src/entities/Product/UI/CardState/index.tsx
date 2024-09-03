@@ -8,6 +8,7 @@ import { getPricingDetails } from '@/shared/helpers/getPricingDetails'
 import PurchaseForm from '@/entities/Product/UI/PurchaseForm'
 import { formatPrice } from '@/shared/helpers/formatPrice'
 import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
+import Prices from '@/shared/UI/Prices/UI'
 
 interface Props extends IProduct {}
 
@@ -17,6 +18,12 @@ const CardState = (props: Props) => {
     const { account } = useAuthStore()
 
     const base = account ? account.priceName : PriceName.UNAUTHORIZED
+
+    if (prices.length === 0) {
+        console.log(props)
+
+        return
+    }
 
     const pricingDetails = getPricingDetails(prices, base)
 
@@ -41,14 +48,7 @@ const CardState = (props: Props) => {
                 <div className={styles.quantity}>В наличии</div>
             </div>
             <div className={styles.cell}>
-                <div className={styles.price}>
-                    <div className={styles.current}>
-                        {formatPrice(pricingDetails.currentPrice)} ₽
-                    </div>
-                    {pricingDetails.basePrice && (
-                        <div className={styles.base}>{formatPrice(pricingDetails.basePrice)}</div>
-                    )}
-                </div>
+                <Prices {...pricingDetails} />
             </div>
             <PurchaseForm product={props} />
         </div>

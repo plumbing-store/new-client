@@ -3,6 +3,16 @@
   align-items: center;
 
   gap: .5rem;
+
+  & * {
+    transition: 200ms all ease-in-out;
+  }
+
+  &:hover {
+    & * {
+      color: var(--color-primary);
+    }
+  }
 }
 
 .total {

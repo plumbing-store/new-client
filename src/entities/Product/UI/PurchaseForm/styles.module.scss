@@ -1,9 +1,9 @@
 .wrapper {
   display: flex;
   justify-content: flex-end;
+  width: fit-content;
 
   padding: .5rem;
-
   gap: 1.5rem;
 }
 
@@ -40,11 +40,17 @@
   aspect-ratio: 1 / 1;
 
   & * {
+    transition: 50ms all ease-in-out;
+
     color: var(--color-dark-transparent-50);
   }
 
   &:hover {
-    background-color: var(--color-dark-transparent-5);
+    background-color: var(--color-primary-transparent-5);
+
+    & * {
+      color: var(--color-primary-transparent-50);
+    }
   }
 }
 
@@ -52,6 +58,12 @@
   text-align: center;
   cursor: pointer;
 
+  color: var(--color-dark-transparent-80);
   font-size: 1.25rem;
+  font-weight: 700;
   width: 2.75rem;
+
+  &:focus {
+    color: var(--color-tertiary);
+  }
 }

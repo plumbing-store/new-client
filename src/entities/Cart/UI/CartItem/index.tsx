@@ -8,6 +8,7 @@ import { IPrice } from '@/entities/Price/model/types'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { deleteProduct } from '@/entities/Cart/api/deleteProduct'
 import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
+import Prices from '@/shared/UI/Prices/UI'
 
 interface Props {
     quantity: number
@@ -27,12 +28,12 @@ const CartItem = ({ product, priceId, price, oldPrice, quantity, total }: Props)
 
     const pricingDetails = {
         price: {
-            current: formatPrice(price),
-            old: formatPrice(oldPrice)
+            currentPrice: price,
+            basePrice: oldPrice
         },
         total: {
-            current: formatPrice(total),
-            old: formatPrice(Number((oldPrice * quantity).toFixed(2)))
+            currentPrice: total,
+            basePrice: oldPrice * quantity
         }
     }
 
@@ -87,20 +88,10 @@ const CartItem = ({ product, priceId, price, oldPrice, quantity, total }: Props)
             </div>
             <div className={styles.cells}>
                 <div className={styles.cell}>
-                    <div className={styles.price}>
-                        <div className={styles.current}>{pricingDetails.price.current} ₽</div>
-                        {hasDiscount && (
-                            <div className={styles.base}>{pricingDetails.price.old}</div>
-                        )}
-                    </div>
+                    <Prices {...pricingDetails.price} />
                 </div>
                 <div className={styles.cell}>
-                    <div className={styles.price}>
-                        <div className={styles.current}>{pricingDetails.total.current} ₽</div>
-                        {hasDiscount && (
-                            <div className={styles.base}>{pricingDetails.total.old}</div>
-                        )}
-                    </div>
+                    <Prices {...pricingDetails.total} />
                 </div>
             </div>
             <button className={styles.deleteButton} onClick={onRemove}>

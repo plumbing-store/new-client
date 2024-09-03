@@ -52,27 +52,6 @@
   font-weight: 550;
 }
 
-.price {
-  position: relative;
-
-  & .current {
-    font-size: 1.15rem;
-  }
-
-  & .base {
-    color: var(--color-danger-transparent-70);
-
-    font-size: .65rem;
-    font-weight: 800;
-
-    position: absolute;
-    text-decoration: line-through;
-
-    top: -70%;
-    right: -10%;
-  }
-}
-
 .quantity {
   color: var(--color-primary-transparent-75);
 
@@ -84,4 +63,12 @@
   align-items: center;
 
   gap: 1.5rem;
+}
+
+.deleteButton {
+  transition: 200ms all ease-in-out;
+
+  &:hover {
+    color: var(--color-primary);
+  }
 }

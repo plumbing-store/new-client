@@ -1,0 +1,44 @@
+.price {
+  position: relative;
+  width: fit-content;
+
+  padding: 1.5rem 0;
+
+  & .current {
+    font-weight: 550;
+    font-size: 1.15rem;
+  }
+
+  & .base {
+    color: var(--color-danger-transparent-70);
+
+    font-size: .65rem;
+    font-weight: 800;
+
+    position: absolute;
+    text-decoration: line-through;
+
+    top: 0.85rem;
+    right: -0.5rem;
+  }
+}
+
+.isBase {
+  display: flex;
+  align-items: center;
+
+  gap: .5rem;
+
+  & .current {
+    font-size: 1.75rem;
+    font-weight: 650;
+    color: var(--color-primary);
+  }
+
+  & .base {
+    color: var(--color-dark-transparent-50);
+    position: static;
+    font-weight: 600;
+    font-size: 1.25rem;
+  }
+}

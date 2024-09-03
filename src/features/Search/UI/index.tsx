@@ -10,12 +10,18 @@ import { quantity } from '@/entities/Category/model/constants'
 import { useRouter } from 'next/navigation'
 
 const Search = () => {
-    const { query, setQuery } = useSearchStore()
+    const { query, setQuery, setTotal, prevQuery, setPrevQuery, setProducts } = useSearchStore()
 
     const router = useRouter()
 
     const search = async () => {
-        if (!query) {
+        if (query === '') {
+            return
+        }
+
+        if (prevQuery === query) {
+            router.push('/search')
+
             return
         }
 
@@ -27,11 +33,15 @@ const Search = () => {
 
         const data = await fetchProducts(params)
 
-        router.push('/search')
-
         if (!data) {
             return
         }
+
+        setProducts(data.products)
+        setTotal(data.total)
+        setPrevQuery(query)
+
+        router.push('/search')
     }
 
     const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {

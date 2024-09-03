@@ -1,5 +1,10 @@
 import { IPrice } from '@/entities/Price/model/types'
 
+interface IProperty {
+    name: string
+    value: string
+}
+
 export interface IProduct {
     id: number
     name: string
@@ -14,6 +19,7 @@ export interface IProduct {
     set: any | null
     createdAt: string
     updatedAt: string
+    properties: IProperty[]
     prices: IPrice[]
 }
 

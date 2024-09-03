@@ -72,3 +72,13 @@ h3 {
     background-color: var(--color-primary);
   }
 }
+
+::selection {
+  background-color: var(--color-tertiary-transparent-45);
+  color: var(--color-light);
+}
+
+::-webkit-selection {
+  background-color: var(--color-primary-transparent-50);
+  color: var(--color-light);
+}

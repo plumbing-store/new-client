@@ -2,20 +2,25 @@ import React from 'react'
 import styles from './styles.module.scss'
 import { IProduct, DisplayState } from '@/entities/Product/model/types'
 import CardState from '@/entities/Product/UI/CardState'
+import Link from 'next/link'
 
 const componentMap = {
-    [DisplayState.Card]: CardState
+    [DisplayState.Card]: CardState,
+    [DisplayState.List]: CardState,
+    [DisplayState.Grid]: CardState
 }
 
-interface Props extends IProduct {}
+interface Props extends IProduct {
+    state: DisplayState
+}
 
-const ProductCard = (props: Props) => {
-    const Variant = componentMap[DisplayState.Card]
+const ProductCard = ({ state, ...props }: Props) => {
+    const Variant = componentMap[state]
 
     return (
-        <div className={styles.wrapper}>
+        <Link className={styles.wrapper} href={`/products/${props.slug}`}>
             <Variant {...props} />
-        </div>
+        </Link>
     )
 }
 
