@@ -1,0 +1,41 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  gap: .5rem;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order {
+  padding: .5rem;
+  border-radius: .5rem;
+  background: rgba(255, 255, 255, .75);
+  box-shadow: 0 0 .75rem rgba(20, 20, 20, .10);
+  cursor: pointer;
+
+  transition: 200ms all ease-in-out;
+
+  &:hover {
+    background: rgba(255, 255, 255, .05);
+  }
+}
+
+.sum {
+  font-weight: 800;
+}
+
+.heading {
+  font-size: 1.75rem;
+}
+
+.orders {
+  display: flex;
+  flex-direction: column;
+
+  gap: .5rem;
+}

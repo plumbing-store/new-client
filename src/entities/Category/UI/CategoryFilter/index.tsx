@@ -68,45 +68,48 @@ const CategoryFilter = () => {
 
     return (
         <div className={styles.wrapper}>
-            <div className={styles.properties}>
-                {properties.map((property) => {
-                    const selectedValue = selectedProperties.find(
-                        (item) => item.name === property.name
-                    )?.value
+            <div className={styles.top}>
+                <h3 className={styles.heading}>Фильтр</h3>
+                <div className={styles.properties}>
+                    {properties.map((property) => {
+                        const selectedValue = selectedProperties.find(
+                            (item) => item.name === property.name
+                        )?.value
 
-                    const propertyName = selectedValue
-                        ? `${property.name} (${selectedValue})`
-                        : property.name
+                        const propertyName = selectedValue
+                            ? `${property.name} (${selectedValue})`
+                            : property.name
 
-                    return (
-                        <div key={property.id} className={styles.property}>
-                            <div
-                                className={styles.header}
-                                onClick={() => toggleProperty(property.id)}
-                            >
-                                <p className={styles.name}>{propertyName}</p>
-                                <ExpandMoreIcon
-                                    className={`${styles.icon} ${openProperty === property.id ? styles.open : ''}`}
-                                />
+                        return (
+                            <div key={property.id} className={styles.property}>
+                                <div
+                                    className={styles.header}
+                                    onClick={() => toggleProperty(property.id)}
+                                >
+                                    <p className={styles.name}>{propertyName}</p>
+                                    <ExpandMoreIcon
+                                        className={`${styles.icon} ${openProperty === property.id ? styles.open : ''}`}
+                                    />
+                                </div>
+                                <ul
+                                    className={classNames(styles.list, {
+                                        [styles.hidden]: openProperty !== property.id
+                                    })}
+                                >
+                                    {property.values.map((value, index) => (
+                                        <li
+                                            key={index}
+                                            className={styles.value}
+                                            onClick={() => handleValueClick(property, value)}
+                                        >
+                                            {value}
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
-                            <ul
-                                className={classNames(styles.list, {
-                                    [styles.hidden]: openProperty !== property.id
-                                })}
-                            >
-                                {property.values.map((value, index) => (
-                                    <li
-                                        key={index}
-                                        className={styles.value}
-                                        onClick={() => handleValueClick(property, value)}
-                                    >
-                                        {value}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </div>
             <div className={styles.buttons}>
                 <Button onClick={() => applyFilter()}>Применить</Button>

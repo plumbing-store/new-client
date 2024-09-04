@@ -4,9 +4,11 @@ import React from 'react'
 import styles from './styles.module.scss'
 import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
 import { formatPrice } from '@/shared/helpers/formatPrice'
+import Button from '@/shared/UI/Button'
+import { createOrder } from '@/entities/Order/api/createOrder'
 
 const CartInfo = () => {
-    const { account } = useAuthStore()
+    const { account, setAccount } = useAuthStore()
 
     if (!account || !account.cart.data.length) {
         return
@@ -31,14 +33,52 @@ const CartInfo = () => {
         { name: 'Скидка', value: formatPrice(Number(discount.toFixed(2))) }
     ]
 
+    const handleOrder = async () => {
+        if (!account) {
+            return
+        }
+
+        const order = await createOrder({
+            name: account.name,
+            cartId: account.cart.id
+        })
+
+        if (!order) {
+            return
+        }
+
+        // TODO: Refactor same things
+
+        setAccount((prevState) => {
+            if (prevState === null) {
+                throw new Error('Account should not be null')
+            }
+
+            return {
+                ...prevState,
+                cart: {
+                    ...prevState.cart,
+                    data: []
+                },
+                orders: [...prevState.orders, order]
+            }
+        })
+    }
+
     return (
         <div className={styles.wrapper}>
-            {items.map(({ name, value }, index) => (
-                <div key={index} className={styles.item}>
-                    <div className={styles.name}>{name}</div>
-                    <div className={styles.value}>{value}</div>
-                </div>
-            ))}
+            <Button className={styles.button} onClick={() => handleOrder()}>
+                Оформить заказ
+            </Button>
+            {/*<h3 className={styles.heading}>Сводка</h3>*/}
+            <div className={styles.items}>
+                {items.map(({ name, value }, index) => (
+                    <div key={index} className={styles.item}>
+                        <div className={styles.name}>{name}</div>
+                        <div className={styles.value}>{value}</div>
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

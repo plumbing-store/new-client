@@ -13,9 +13,9 @@
   @media (min-width: 768px) {
     display: grid;
 
-    background: rgb(255, 255, 255);
+    background: rgba(255, 255, 255, .75);
 
-    border-radius: .5rem;
+    border-radius: .75rem;
     padding: .75rem;
 
     grid-template-columns: 5fr 1fr 3fr 1fr;

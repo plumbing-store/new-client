@@ -81,7 +81,7 @@ export const useCategoryStore = create<ICategoryState>((set) => ({
     breadcrumbs: [],
     setBreadcrumbs: (breadcrumbs) => set({ breadcrumbs }),
 
-    sortOptions: { sort: 'price', sortInverse: false },
+    sortOptions: { sort: 'price', sortInverse: true },
     setSortOptions: (value) =>
         set((state) => ({
             sortOptions: typeof value === 'function' ? value(state.sortOptions) : value

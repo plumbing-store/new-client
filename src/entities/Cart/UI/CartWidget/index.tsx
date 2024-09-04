@@ -7,16 +7,20 @@ import CartList from '@/entities/Cart/UI/CartList'
 import PageTitle from '@/shared/UI/PageTitle'
 import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
 import Plug from '@/shared/UI/Plug'
+import Button from '@/shared/UI/Button'
+import { createOrder } from '@/entities/Order/api/createOrder'
 
 const CartWidget = () => {
-    const { account } = useAuthStore()
+    const { account, setAccount } = useAuthStore()
 
     return (
         <div className={styles.wrapper}>
             <PageTitle>Корзина</PageTitle>
             {account && account.cart.data.length ? (
                 <div className={styles.content}>
-                    <CartInfo />
+                    <div className={styles.side}>
+                        <CartInfo />
+                    </div>
                     <CartList />
                 </div>
             ) : (

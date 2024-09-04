@@ -18,7 +18,7 @@
   font-weight: 500;
   background: var(--color-dark-transparent-10);
   color: var(--color-dark);
-  border-radius: 5rem;
+  border-radius: .75rem;
   outline: none;
   width: 100%;
 
@@ -52,7 +52,7 @@
   color: var(--color-secondary);
   background-color: var(--color-light-transparent-85);
   backdrop-filter: blur(.075rem);
-  border-radius: .25rem;
+  border-radius: .75rem;
   z-index: 10;
 }
 

@@ -16,7 +16,7 @@
   background: var(--color-light);
   color: var(--color-dark);
   border: .0625rem solid var(--color-dark-transparent-25);
-  border-radius: .25rem;
+  border-radius: .75rem;
   outline: none;
   width: 100%;
 
@@ -50,7 +50,7 @@
   color: var(--color-secondary);
   background-color: var(--color-light-transparent-85);
   backdrop-filter: blur(.075rem);
-  border-radius: .25rem;
+  border-radius: .75rem;
   z-index: 10;
 }
 

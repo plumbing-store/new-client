@@ -1,10 +1,11 @@
 import { create } from 'zustand'
 import { PriceName } from '@/entities/Price/model/types'
+import { IOrder } from '@/entities/Order/model/types'
 
 export interface ICart {
     id: number
     companyId: number
-    data: any[] // Лучше заменить any на конкретный тип, если это возможно
+    data: any[]
     createdAt: string
     updatedAt: string
 }
@@ -20,7 +21,7 @@ export interface IAccount {
     email: string
     createdAt: string
     updatedAt: string
-    orders: any[] // Лучше заменить any на конкретный тип, если это возможно
+    orders: IOrder[]
     priceName: PriceName
     cart: ICart
 }

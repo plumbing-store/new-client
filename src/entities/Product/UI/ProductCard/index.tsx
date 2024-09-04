@@ -4,18 +4,20 @@ import { IProduct, DisplayState } from '@/entities/Product/model/types'
 import CardState from '@/entities/Product/UI/CardState'
 import Link from 'next/link'
 import GridState from '@/entities/Product/UI/GridState'
+import ListState from '@/entities/Product/UI/ListState'
 
 const componentMap = {
     [DisplayState.Grid]: GridState,
-    [DisplayState.List]: CardState,
+    [DisplayState.List]: ListState,
     [DisplayState.Card]: CardState
 }
 
 interface Props extends IProduct {
-    state: DisplayState
+    isStatic?: boolean
+    state?: DisplayState
 }
 
-const ProductCard = ({ state, ...props }: Props) => {
+const ProductCard = ({ isStatic = false, state = DisplayState.Card, ...props }: Props) => {
     const Variant = componentMap[state]
 
     const onClick = (event: React.MouseEvent) => {
@@ -26,7 +28,7 @@ const ProductCard = ({ state, ...props }: Props) => {
 
     return (
         <Link className={styles.wrapper} href={`/products/${props.slug}`} onClick={onClick}>
-            <Variant {...props} />
+            <Variant isStatic={isStatic} {...props} />
         </Link>
     )
 }

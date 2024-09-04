@@ -10,9 +10,11 @@ import { formatPrice } from '@/shared/helpers/formatPrice'
 import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
 import Prices from '@/shared/UI/Prices/UI'
 
-interface Props extends IProduct {}
+interface Props extends IProduct {
+    isStatic?: boolean
+}
 
-const GridState = (props: Props) => {
+const GridState = ({ isStatic = false, ...props }: Props) => {
     const { prices, image, name, sku } = props
 
     const { account } = useAuthStore()

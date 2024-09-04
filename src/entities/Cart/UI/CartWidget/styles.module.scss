@@ -5,6 +5,19 @@
   gap: 2.5rem;
 }
 
+.side {
+  display: flex;
+  flex-direction: column;
+
+  gap: .5rem;
+
+  @media (min-width: 992px) {
+    min-width: 30rem;
+  }
+}
+
+
+
 .content {
   display: flex;
   flex-direction: column;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
@@ -11,8 +11,11 @@ import ListCheck from '@/shared/UI/Icons/ListCheck'
 import ListIndefinite from '@/shared/UI/Icons/ListIndefinite'
 import { DisplayState } from '@/entities/Product/model/types'
 import Tooltip from '@/shared/UI/Tooltip'
+import { useLocalStorage } from '@/shared/hooks/useLocalStorage'
 
 const CategoryHeader = () => {
+    const [, setStoredDisplayState] = useLocalStorage<string | null>('displayState', null)
+
     const { displayState, setDisplayState, setPage, sortOptions, setSortOptions } =
         useCategoryStore()
 
@@ -30,25 +33,29 @@ const CategoryHeader = () => {
     }
 
     const handleClick = (displayState: DisplayState) => {
-        console.log(displayState)
-
         setDisplayState(displayState)
     }
+
+    useEffect(() => {
+        if (displayState) {
+            setStoredDisplayState(displayState)
+        }
+    }, [displayState])
 
     const buttonsConfig = [
         {
             icon: <GridIcon />,
-            value: 'Отображение в виде сетки',
+            value: 'Вид каталога: сетка',
             displayState: DisplayState.Grid
         },
         {
             icon: <ListCheck />,
-            value: 'Отображение в виде списка',
+            value: 'Вид каталога: линия',
             displayState: DisplayState.List
         },
         {
             icon: <ListIndefinite />,
-            value: 'Отображение в виде карточек',
+            value: 'Вид каталога: таблица',
             displayState: DisplayState.Card
         }
     ]

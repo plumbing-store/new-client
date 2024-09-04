@@ -9,27 +9,28 @@ import PurchaseForm from '@/entities/Product/UI/PurchaseForm'
 import { formatPrice } from '@/shared/helpers/formatPrice'
 import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
 import Prices from '@/shared/UI/Prices/UI'
-import classNames from 'classnames'
 
 interface Props extends IProduct {
     isStatic?: boolean
 }
 
-const CardState = ({ isStatic = false, ...props }: Props) => {
-    const { prices, image, name, sku, vendorSku } = props
+const ListState = ({ isStatic = false, ...props }: Props) => {
+    const { prices, image, name, sku } = props
 
     const { account } = useAuthStore()
 
     const base = account ? account.priceName : PriceName.UNAUTHORIZED
 
     if (prices.length === 0) {
+        console.log(props)
+
         return
     }
 
     const pricingDetails = getPricingDetails(prices, base)
 
     return (
-        <div className={classNames(styles.wrapper, { [styles.static]: isStatic })}>
+        <div className={styles.wrapper}>
             <div className={styles.head}>
                 {image && (
                     <Image
@@ -42,20 +43,22 @@ const CardState = ({ isStatic = false, ...props }: Props) => {
                 )}
                 <div className={styles.meta}>
                     <h3 className={styles.name}>{name}</h3>
-                    <p className={styles.sku}>{sku}</p>
                 </div>
             </div>
             <div className={styles.cell}>
-                {!isStatic && <div className={styles.quantity}>В наличии</div>}
+                <p className={styles.sku}>{sku}</p>
             </div>
             <div className={styles.cell}>
-                <Prices {...pricingDetails} />
+                <div className={styles.quantity}>В наличии</div>
             </div>
-            <div className={styles.purchaseFormWrapper}>
-                <PurchaseForm product={props} />
+            <div className={styles.cell}>
+                <div className={styles.end}>
+                    <Prices {...pricingDetails} />
+                    <PurchaseForm product={props} />
+                </div>
             </div>
         </div>
     )
 }
 
-export default CardState
+export default ListState

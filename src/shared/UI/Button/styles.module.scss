@@ -1,5 +1,5 @@
 .button {
-  height: 2.85rem;
+  height: 2.65rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7,11 +7,11 @@
   position: relative;
   padding: .75rem 1.5rem;
   font-weight: 500;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   color: var(--color-light);
   background-color: var(--color-primary);
   border: none;
-  border-radius: 1.5rem;
+  border-radius: .75rem;
   cursor: pointer;
   overflow: hidden;
   outline: none;
