@@ -9,7 +9,7 @@ interface IState {
     setPrevQuery: (query: string) => void
 
     products: IProduct[]
-    setProducts: (products: IProduct[]) => void
+    setProducts: (value: IProduct[] | ((prevState: IProduct[]) => IProduct[])) => void
 
     total: number
     setTotal: (total: number) => void
@@ -23,7 +23,8 @@ export const useSearchStore = create<IState>((set) => ({
     setPrevQuery: (query: string) => set({ prevQuery: query }),
 
     products: [],
-    setProducts: (products: IProduct[]) => set({ products }),
+    setProducts: (value) =>
+        set((state) => ({ products: typeof value === 'function' ? value(state.products) : value })),
 
     total: 0,
     setTotal: (total: number) => set({ total })

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
 import PersonIcon from '@mui/icons-material/Person'
 import Popover from '@/shared/UI/Popover'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
 import { logOut } from '@/shared/helpers/logout'
 import { useLocalStorage } from '@/shared/hooks/useLocalStorage'
@@ -12,6 +12,7 @@ import { useLocalStorage } from '@/shared/hooks/useLocalStorage'
 const ProfileButton = () => {
     const [isPopoverVisible, setIsPopoverVisible] = useState(false)
     const router = useRouter()
+    const pathname = usePathname()
 
     const [storedToken, setStoredToken] = useLocalStorage<string | null>('token', null)
 
@@ -19,7 +20,11 @@ const ProfileButton = () => {
 
     const handleOptionClick = (value: string) => {
         if (value === 'LOGOUT') {
-            router.push('/')
+            console.log(pathname)
+
+            if (['/cart', '/profile', '/orders', '/cashback'].includes(pathname)) {
+                router.push('/')
+            }
 
             setAccount(null)
             setStoredToken(null)

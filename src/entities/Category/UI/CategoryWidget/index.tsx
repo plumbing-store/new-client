@@ -24,6 +24,8 @@ interface Props {
     properties: IProperty[]
 }
 
+let timeout: NodeJS.Timeout
+
 const CategoryWidget = ({ depth, total, breadcrumbs, category, properties }: Props) => {
     const [isLoading, setIsLoading] = useState(false)
 
@@ -32,7 +34,7 @@ const CategoryWidget = ({ depth, total, breadcrumbs, category, properties }: Pro
         null
     )
 
-    const observerRef = useRef<HTMLDivElement | null>(null) // Ссылка на элемент для наблюдения
+    const observerRef = useRef<HTMLDivElement | null>(null)
 
     const {
         history,
@@ -48,6 +50,7 @@ const CategoryWidget = ({ depth, total, breadcrumbs, category, properties }: Pro
         isAutoLoadDisabled
     } = useCategoryStore()
 
+    // При первой загрузке
     useEffect(() => {
         const storedCategory = history.find((item) => item.categoryId === category.id)
 
@@ -73,29 +76,37 @@ const CategoryWidget = ({ depth, total, breadcrumbs, category, properties }: Pro
         }
     }, [])
 
-    const loadMoreProducts = useCallback(
-        debounce(async () => {
-            console.log(isAutoLoadDisabled)
+    const loadMoreProducts = async (
+        isLoading: boolean,
+        isAutoLoadDisabled: boolean,
+        page: number,
+        totalValue: number
+    ) => {
+        if (isLoading || isAutoLoadDisabled || page >= totalValue) return
 
-            if (!isAutoLoadDisabled && !isLoading) {
-                setIsLoading(true)
-                setPage((prevState) => prevState + 1)
-                await updateProducts(true)
-                setIsLoading(false)
-            }
-        }, 1000),
-        [isAutoLoadDisabled, isLoading]
-    )
+        setIsLoading(true)
 
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-        const [entry] = entries
+        setPage((prevState) => {
+            return prevState + 1
+        })
 
-        if (entry.isIntersecting) {
-            loadMoreProducts()
-        }
+        await updateProducts(true)
+
+        setIsLoading(false)
     }
 
     useEffect(() => {
+        const observerCallback = (entries: IntersectionObserverEntry[]) => {
+            const [entry] = entries
+
+            if (entry.isIntersecting) {
+                timeout = setTimeout(
+                    () => loadMoreProducts(isLoading, isAutoLoadDisabled, page, totalValue),
+                    1000
+                )
+            }
+        }
+
         const observer = new IntersectionObserver(observerCallback, {
             root: null,
             rootMargin: '0px',
@@ -110,8 +121,12 @@ const CategoryWidget = ({ depth, total, breadcrumbs, category, properties }: Pro
             if (observerRef.current) {
                 observer.unobserve(observerRef.current)
             }
+
+            if (timeout) {
+                clearTimeout(timeout)
+            }
         }
-    }, [isAutoLoadDisabled, observerRef.current])
+    }, [observerRef.current, isLoading, isAutoLoadDisabled, page, totalValue])
 
     useEffect(() => {
         setIsStoredAutoLoadDisabled(isAutoLoadDisabled)

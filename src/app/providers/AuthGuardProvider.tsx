@@ -14,7 +14,7 @@ const AuthGuardProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         if (!account) {
-            router.push('/login')
+            router.push('/')
         }
 
         setIsLoading(false)
