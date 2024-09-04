@@ -5,7 +5,7 @@
   align-items: center;
   overflow: hidden;
 
-  background: rgba(255, 255, 255, .75);
+  background: rgba(255, 255, 255, 1.0);
 
   border-radius: .75rem;
 
@@ -67,9 +67,13 @@
 }
 
 .deleteButton {
-  transition: 200ms all ease-in-out;
+  & svg {
+    transition: 200ms all ease-in-out;
+  }
 
   &:hover {
-    color: var(--color-tertiary);
+    & svg {
+      color: var(--color-tertiary) !important;
+    }
   }
 }

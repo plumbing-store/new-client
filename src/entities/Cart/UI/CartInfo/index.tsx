@@ -67,9 +67,6 @@ const CartInfo = () => {
 
     return (
         <div className={styles.wrapper}>
-            <Button className={styles.button} onClick={() => handleOrder()}>
-                Оформить заказ
-            </Button>
             {/*<h3 className={styles.heading}>Сводка</h3>*/}
             <div className={styles.items}>
                 {items.map(({ name, value }, index) => (
@@ -79,6 +76,9 @@ const CartInfo = () => {
                     </div>
                 ))}
             </div>
+            <Button className={styles.button} onClick={() => handleOrder()}>
+                Оформить заказ
+            </Button>
         </div>
     )
 }

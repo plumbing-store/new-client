@@ -9,7 +9,7 @@
   flex-direction: column;
   gap: 1.05rem;
 
-  background: rgba(255, 255, 255, .75);
+  background: rgba(255, 255, 255, 1.0);
 
   @media (min-width: 576px) and (max-width: 991px) {
     flex-wrap: wrap;
@@ -30,7 +30,7 @@
 }
 
 .button {
-  height: 3.5rem !important;
+  height: 3.125rem !important;
   font-size: 1.15rem !important;
 }
 

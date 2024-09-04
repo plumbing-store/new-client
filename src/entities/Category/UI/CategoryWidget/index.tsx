@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import styles from './styles.module.scss'
 import { ICategory } from '@/entities/Category/model/types'
 import { IProperty, useCategoryStore } from '@/entities/Category/model/store'
@@ -9,12 +9,12 @@ import CategoryFilter from '@/entities/Category/UI/CategoryFilter'
 import CategoryProducts from '@/entities/Category/UI/CategoryProducts'
 import CategoryHeader from '@/entities/Category/UI/CategoryHeader'
 import Pagination from '@/shared/UI/Pagination/UI'
-import { fetchProducts } from '@/entities/Product/api/fetchProducts'
-import { generateFilter, updateProducts } from '@/entities/Category/model/helpers'
+import { updateProducts } from '@/entities/Category/model/helpers'
 import CategoryBreadcrumbs from '@/entities/Category/UI/CategoryBreadcrumbs'
 import FixedLoader from '@/shared/UI/FixedLoader'
 import { useLocalStorage } from '@/shared/hooks/useLocalStorage'
 import ScrollToTop from '@/features/ScrollToTop/UI'
+import { debounce } from 'lodash'
 
 interface Props {
     depth: number
@@ -73,29 +73,45 @@ const CategoryWidget = ({ depth, total, breadcrumbs, category, properties }: Pro
         }
     }, [])
 
+    const loadMoreProducts = useCallback(
+        debounce(async () => {
+            console.log(isAutoLoadDisabled)
+
+            if (!isAutoLoadDisabled && !isLoading) {
+                setIsLoading(true)
+                setPage((prevState) => prevState + 1)
+                await updateProducts(true)
+                setIsLoading(false)
+            }
+        }, 1000),
+        [isAutoLoadDisabled, isLoading]
+    )
+
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
         const [entry] = entries
 
-        if (entry.isIntersecting && !isAutoLoadDisabled && !isLoading) {
-            setTimeout(() => {
-                setIsLoading(true)
-
-                setPage((prevState) => prevState + 1)
-
-                updateProducts(true).finally(() => setIsLoading(false))
-            }, 1000)
+        if (entry.isIntersecting) {
+            loadMoreProducts()
         }
     }
 
-    const observer = new IntersectionObserver(observerCallback, {
-        root: null,
-        rootMargin: '0px',
-        threshold: 1.0
-    })
+    useEffect(() => {
+        const observer = new IntersectionObserver(observerCallback, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 1.0
+        })
 
-    if (observerRef.current) {
-        observer.observe(observerRef.current)
-    }
+        if (observerRef.current) {
+            observer.observe(observerRef.current)
+        }
+
+        return () => {
+            if (observerRef.current) {
+                observer.unobserve(observerRef.current)
+            }
+        }
+    }, [isAutoLoadDisabled, observerRef.current])
 
     useEffect(() => {
         setIsStoredAutoLoadDisabled(isAutoLoadDisabled)

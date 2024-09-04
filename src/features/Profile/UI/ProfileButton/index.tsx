@@ -17,20 +17,20 @@ const ProfileButton = () => {
 
     const { account, setAccount } = useAuthStore()
 
-    useEffect(() => {
-        if (!storedToken) {
-            setAccount(null)
-        }
-    }, [storedToken])
-
     const handleOptionClick = (value: string) => {
         if (value === 'LOGOUT') {
-            logOut(router)
+            router.push('/')
+
+            setAccount(null)
+            setStoredToken(null)
+
+            setIsPopoverVisible(false)
 
             return
         }
 
         router.push(value)
+
         setIsPopoverVisible(false)
     }
 
