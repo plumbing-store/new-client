@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 
 import styles from './styles.module.scss'
@@ -8,7 +10,25 @@ interface Props {
 }
 
 const Subcategories = ({ categories }: Props) => {
-    return <div></div>
+    console.log(categories)
+
+    return (
+        <div className={styles.categories}>
+            {categories.map((category) => {
+                return (
+                    <div
+                        className={styles.card}
+                        style={{
+                            backgroundImage: `url('/images/raster/${category.externalId}.webp')`
+                        }}
+                    >
+                        <div className={styles.overlay} />
+                        <h2 className={styles.name}>{category.name}</h2>
+                    </div>
+                )
+            })}
+        </div>
+    )
 }
 
 export default Subcategories

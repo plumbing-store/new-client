@@ -1,0 +1,61 @@
+.categories {
+  display: grid;
+
+  gap: 1.5rem;
+
+  grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+}
+
+.card {
+  background: center / 100% no-repeat;
+  overflow: hidden;
+
+  border-radius: 3.25rem;
+
+  height: 20rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1.25rem .5rem;
+
+  position: relative;
+  cursor: pointer;
+
+  transition: 200ms all ease-in-out;
+
+  &:hover {
+    background-size: 120%;
+
+    scale: 1.05;
+
+    .overlay {
+      backdrop-filter: blur(1.125rem);
+    }
+  }
+}
+
+.overlay {
+  position: absolute;
+
+  transition: 200ms all ease-in-out;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: var(--color-dark-transparent-85);
+}
+
+.name {
+  position: relative;
+  text-align: center;
+
+  font-size: 1.5rem;
+
+  z-index: 10;
+
+  color: var(--color-light);
+}

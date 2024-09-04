@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import Wrapper from '@/shared/UI/Wrapper'
 import CategoryWidget from '../../../entities/Category/UI/CategoryWidget'
 import { fetchProperties } from '@/entities/Category/api/fetchProperties'
+import Subcategories from '@/widgets/Subcategories/UI'
 
 const Category = async ({ params }: { params: { slug: string } }) => {
     const { result: category, total, depth, breadcrumbs } = await fetchCategory(params.slug)
@@ -21,7 +22,7 @@ const Category = async ({ params }: { params: { slug: string } }) => {
     if (depth === 0) {
         return (
             <Wrapper>
-                <Subcategories />
+                <Subcategories categories={category.children} />
             </Wrapper>
         )
     }
