@@ -12,16 +12,16 @@
 }
 
 .order {
-  padding: .5rem;
-  border-radius: .5rem;
+  padding: .75rem 1.125rem;
+  border-radius: .75rem;
   background: rgba(255, 255, 255, .75);
-  box-shadow: 0 0 .75rem rgba(20, 20, 20, .10);
+  box-shadow: 0 0 .75rem rgba(120, 120, 120, .05);
   cursor: pointer;
 
   transition: 200ms all ease-in-out;
 
   &:hover {
-    background: rgba(255, 255, 255, .05);
+    background: rgba(255, 255, 255, .5);
   }
 }
 

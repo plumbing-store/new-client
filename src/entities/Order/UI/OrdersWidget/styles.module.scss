@@ -1,11 +1,10 @@
 .wrapper {
   padding: 1.25rem;
   border-radius: .75rem;
-  background: rgba(255, 255, 255, .75);
 
   display: flex;
   flex-direction: column;
 
+  max-width: 40rem;
   gap: 1.5rem;
-  max-width: 90rem;
 }

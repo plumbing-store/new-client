@@ -24,12 +24,12 @@ const OrdersHeader = () => {
             name: 'Заказы',
             section: 'orders',
             point: numberOfOrders
-        },
-        {
-            name: 'Товары',
-            section: 'products',
-            point: numberOfProducts
         }
+        // {
+        //     name: 'Товары',
+        //     section: 'products',
+        //     point: numberOfProducts
+        // }
     ]
 
     return (

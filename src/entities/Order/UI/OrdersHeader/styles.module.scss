@@ -11,9 +11,9 @@
     transition: 200ms all ease-in-out;
   }
 
-  &:hover * {
-    color: var(--color-primary) !important;
-  }
+  //&:hover * {
+  //  color: var(--color-primary) !important;
+  //}
 
   &:not(.active) * {
     color: var(--color-dark-transparent-60);
