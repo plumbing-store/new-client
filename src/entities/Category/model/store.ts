@@ -37,7 +37,7 @@ interface ICategoryState {
     setTotal: (total: number) => void
 
     page: number
-    setPage: (page: number) => void
+    setPage: (page: number | ((prevState: number) => number)) => void
 
     breadcrumbs: { name: string; slug: string }[]
     setBreadcrumbs: (breadcrumbs: { name: string; slug: string }[]) => void
@@ -56,6 +56,9 @@ interface ICategoryState {
 
     displayState: DisplayState
     setDisplayState: (displayState: DisplayState) => void
+
+    isAutoLoadDisabled: boolean
+    setIsAutoLoadDisabled: (value: boolean | ((prevState: boolean) => boolean)) => void
 }
 
 export const useCategoriesStore = create<ICategoriesState>((set) => ({
@@ -64,6 +67,13 @@ export const useCategoriesStore = create<ICategoriesState>((set) => ({
 }))
 
 export const useCategoryStore = create<ICategoryState>((set) => ({
+    isAutoLoadDisabled: false,
+    setIsAutoLoadDisabled: (value) =>
+        set((state) => ({
+            isAutoLoadDisabled:
+                typeof value === 'function' ? value(state.isAutoLoadDisabled) : value
+        })),
+
     category: {} as ICategory,
     setCategory: (value) =>
         set((state) => ({ category: typeof value === 'function' ? value(state.category) : value })),
@@ -81,7 +91,8 @@ export const useCategoryStore = create<ICategoryState>((set) => ({
     setTotal: (total) => set({ total }),
 
     page: 1,
-    setPage: (page) => set({ page }),
+    setPage: (value) =>
+        set((state) => ({ page: typeof value === 'function' ? value(state.page) : value })),
 
     breadcrumbs: [],
     setBreadcrumbs: (breadcrumbs) => set({ breadcrumbs }),

@@ -1,10 +1,11 @@
 import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
+import { PriceName } from '@/entities/Price/model/types'
 
 export const useAuthorization = () => {
-    const { user } = useAuthStore()
+    const { account } = useAuthStore()
 
-    const hasPermission = (requiredRole: string): boolean => {
-        return user?.role === requiredRole
+    const hasPermission = (requiredPriceName: PriceName): boolean => {
+        return account?.priceName === requiredPriceName
     }
 
     return { hasPermission }

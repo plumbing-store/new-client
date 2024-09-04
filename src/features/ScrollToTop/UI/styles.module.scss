@@ -1,0 +1,35 @@
+.scrollToTop {
+  position: fixed;
+  bottom: var(--spacing-lg); /* Используем переменную для отступа */
+  right: var(--spacing-lg);
+  z-index: 1000;
+
+  transition: 200ms all ease-in-out;
+
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.customCircle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.75rem; /* Диаметр круга */
+  height: 2.75rem;
+  background-color: var(--color-primary); /* Основной цвет круга */
+  border-radius: 50%; /* Круглая форма */
+  cursor: pointer;
+  transition: 300ms all ease-in-out;
+
+  &:hover {
+    background-color: var(--color-tertiary-transparent-75); /* Изменение цвета на более светлый при наведении */
+    transform: translateY(-0.25rem); /* Легкий подъем при наведении */
+  }
+}
+
+.arrowIcon {
+  color: var(--color-light-darker-transparent-75) !important; /* Цвет стрелки */
+  font-size: 2rem; /* Размер иконки */
+}

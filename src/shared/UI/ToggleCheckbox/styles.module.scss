@@ -1,13 +1,49 @@
-// check
-
 .label {
   display: flex;
   align-items: center;
   cursor: pointer;
-  gap: .55rem;
+  gap: .75rem;
+  font-size: 1.25rem;
+  user-select: none;
+
+  & input[type='checkbox'] {
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border-radius: 0.25rem;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    border: .125rem solid var(--color-dark-transparent-50);
+    transition: background 200ms ease-in-out, border-color 300s ease-in-out;
+
+    &:checked {
+      background: var(--color-dark);
+    }
+
+    &:checked::after {
+      content: '';
+      position: absolute;
+      left: 20%;
+      top: 45%;
+      width: 0.325rem;
+      height: 0.725rem;
+      border: solid white;
+      border-width: 0 0.15rem 0.15rem 0;
+      transform: rotate(45deg) translate(-55%, -55%);
+    }
+
+    &:hover {
+
+    }
+  }
 
   & span {
-    line-height: 110%;
-    font-size: .925rem;
+    font-size: .75rem;
+    font-weight: 600;
+    margin-top: .05rem;
   }
 }
+

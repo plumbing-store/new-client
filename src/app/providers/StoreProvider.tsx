@@ -12,16 +12,25 @@ interface Props {
 
 const StoreProvider = ({ children }: Props) => {
     const { setCategories } = useCategoriesStore()
-    const { setDisplayState } = useCategoryStore()
+    const { setDisplayState, setIsAutoLoadDisabled } = useCategoryStore()
 
     const [storedDisplayState, setStoredDisplayState] = useLocalStorage<string | null>(
         'displayState',
         null
     )
 
+    const [isStoredAutoLoadDisabled, setStoredAutoLoadDisabled] = useLocalStorage<boolean | null>(
+        'isAutoLoadDisabled',
+        null
+    )
+
     useEffect(() => {
         if (storedDisplayState) {
             setDisplayState(storedDisplayState as DisplayState)
+        }
+
+        if (isStoredAutoLoadDisabled) {
+            setIsAutoLoadDisabled(isStoredAutoLoadDisabled)
         }
 
         const fetch = async () => {

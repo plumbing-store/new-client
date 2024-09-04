@@ -1,10 +1,14 @@
 .wrapper {
   position: fixed;
 
+  background: var(--color-light);
+
   padding: .75rem;
 
   bottom: 0;
   right: 0;
+
+  z-index: 50;
 
   @media (min-width: 992px) {
     padding: 1.25rem;

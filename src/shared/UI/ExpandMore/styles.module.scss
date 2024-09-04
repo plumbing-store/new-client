@@ -1,0 +1,18 @@
+.button {
+  transition: 200ms all ease-in-out;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.5rem;
+  height: 1.5rem;
+
+  &:hover {
+    color: var(--color-tertiary);
+  }
+}
+
+.expanded {
+  transform: rotate(180deg);
+}

@@ -1,19 +1,32 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
 import PersonIcon from '@mui/icons-material/Person'
 import Popover from '@/shared/UI/Popover'
 import { useRouter } from 'next/navigation'
+import { useAuthStore } from '@/features/Authentication/model/useAuthStore'
+import { logOut } from '@/shared/helpers/logout'
+import { useLocalStorage } from '@/shared/hooks/useLocalStorage'
 
 const ProfileButton = () => {
     const [isPopoverVisible, setIsPopoverVisible] = useState(false)
     const router = useRouter()
 
+    const [storedToken, setStoredToken] = useLocalStorage<string | null>('token', null)
+
+    const { account, setAccount } = useAuthStore()
+
+    useEffect(() => {
+        if (!storedToken) {
+            setAccount(null)
+        }
+    }, [storedToken])
+
     const handleOptionClick = (value: string) => {
         if (value === 'LOGOUT') {
-            // Логика выхода
-            console.log('Logging out...')
+            logOut(router)
+
             return
         }
 
@@ -36,12 +49,17 @@ const ProfileButton = () => {
         }
     ]
 
+    const handleClick = () => {
+        if (account) {
+            setIsPopoverVisible(!isPopoverVisible)
+        } else {
+            router.push('/login')
+        }
+    }
+
     return (
         <div className={styles.profileWrapper}>
-            <button
-                className={styles.button}
-                onClick={() => setIsPopoverVisible(!isPopoverVisible)}
-            >
+            <button className={styles.button} onClick={() => handleClick()}>
                 <PersonIcon style={{ fontSize: 30 }} />
             </button>
             {isPopoverVisible && (

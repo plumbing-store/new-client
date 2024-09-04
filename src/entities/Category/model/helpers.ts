@@ -13,7 +13,7 @@ export const generateFilter = (selectedProperties: IProperty[]) => {
     )
 }
 
-export const updateProducts = async () => {
+export const updateProducts = async (isAddition = false) => {
     const { page, category, setCategory, sortOptions, setTotal, selectedProperties, setHistory } =
         useCategoryStore.getState()
 
@@ -42,7 +42,7 @@ export const updateProducts = async () => {
     setCategory((prevState) => {
         return {
             ...prevState,
-            products: data.products
+            products: isAddition ? [...prevState.products, ...data.products] : data.products
         }
     })
 

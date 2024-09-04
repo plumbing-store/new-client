@@ -27,7 +27,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding-inline: .5rem;
+}
+
+.expandMoreWrapper {
+  @media (min-width: 992px) {
+    display: none;
+  }
 }
 
 .link {

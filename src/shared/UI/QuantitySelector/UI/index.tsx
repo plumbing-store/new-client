@@ -27,11 +27,15 @@ const QuantitySelector = ({ quantity, onChange, maxQuantity, onKeyDown }: Props)
         if (quantity > 0) {
             onChange(quantity - 1, true)
         }
+
+        if (quantity === 0) {
+            onChange(0, true)
+        }
     }
 
     const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(event.target.value)
-        if (!isNaN(value) && value > 0 && value <= maxQuantity) {
+        if (!isNaN(value) && value >= 0 && value <= maxQuantity) {
             onChange(value)
         }
     }

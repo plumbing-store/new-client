@@ -5,6 +5,7 @@
 
   backdrop-filter: blur(.5rem);
 
+  background: var(--color-light);
   border-right: .0625rem solid var(--color-primary-transparent-10);
 
   position: fixed;
@@ -83,7 +84,7 @@
   }
 
   &:hover {
-    color: var(--color-primary);
+    color: var(--color-tertiary);
 
     & path {
       fill: blue;

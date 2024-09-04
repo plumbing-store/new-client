@@ -7,6 +7,8 @@ import Button from '@/shared/UI/Button'
 import classNames from 'classnames'
 import { generateFilter, updateProducts } from '@/entities/Category/model/helpers'
 import { quantity } from '@/entities/Category/model/constants'
+import ToggleCheckbox from '@/shared/UI/ToggleCheckbox'
+import ExpandMore from '@/shared/UI/ExpandMore'
 
 const CategoryFilter = () => {
     const {
@@ -18,7 +20,9 @@ const CategoryFilter = () => {
         setTotal,
         setPage,
         sortOptions,
-        setSortOptions
+        setSortOptions,
+        isAutoLoadDisabled,
+        setIsAutoLoadDisabled
     } = useCategoryStore()
     const [openProperty, setOpenProperty] = useState<number | null>(null)
 
@@ -88,9 +92,7 @@ const CategoryFilter = () => {
                                     onClick={() => toggleProperty(property.id)}
                                 >
                                     <p className={styles.name}>{property.name}</p>
-                                    <ExpandMoreIcon
-                                        className={`${styles.icon} ${openProperty === property.id ? styles.open : ''}`}
-                                    />
+                                    <ExpandMore isExpanded={openProperty === property.id} />
                                 </div>
                                 <ul
                                     className={classNames(styles.list, {
@@ -125,6 +127,13 @@ const CategoryFilter = () => {
             <div className={styles.buttons}>
                 <Button onClick={() => applyFilter()}>Применить</Button>
                 <Button onClick={() => resetFilter()}>Сбросить</Button>
+            </div>
+            <div className={styles.draw}>
+                <ToggleCheckbox
+                    message='Отключить автоматическую загрузку'
+                    value={isAutoLoadDisabled}
+                    setValue={setIsAutoLoadDisabled}
+                />
             </div>
         </div>
     )

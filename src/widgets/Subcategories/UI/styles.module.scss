@@ -3,6 +3,9 @@
 
   gap: 1.5rem;
 
+  flex: 1;
+  height: fit-content;
+
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 }
 

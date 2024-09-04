@@ -37,14 +37,6 @@
   font-weight: 600;
 }
 
-.icon {
-  transition: transform 200ms ease-in-out;
-}
-
-.open {
-  transform: rotate(180deg);
-}
-
 .list {
   max-height: 20rem;
 
@@ -69,6 +61,10 @@
   cursor: pointer;
 
   transition: color 200ms ease-in-out;
+}
+
+.draw {
+  padding: 1.5rem 0 0 .5rem;
 }
 
 .value:hover {
