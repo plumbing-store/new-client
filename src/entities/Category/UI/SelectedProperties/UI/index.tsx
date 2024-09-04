@@ -12,7 +12,7 @@ const SelectedProperties = () => {
     return (
         <div className={styles.wrapper}>
             {selectedProperties.map((property, index) => (
-                <div className={styles.property} key={index}>
+                <div key={index} className={styles.property}>
                     <p className={styles.name}>{property.name}</p>
                     <p className={styles.value}>{property.value}</p>
                 </div>

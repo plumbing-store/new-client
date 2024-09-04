@@ -10,9 +10,9 @@ const CategoryList = () => {
 
     return (
         <div className={styles.links}>
-            {category.children.map((child) => {
+            {category.children.map((child, index) => {
                 return (
-                    <div className={styles.item}>
+                    <div key={index} className={styles.item}>
                         <Link className={styles.link} href={`/categories/${child.slug}`}>
                             {child.name}
                         </Link>

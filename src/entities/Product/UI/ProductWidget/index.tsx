@@ -43,9 +43,9 @@ const ProductWidget = ({ product }: Props) => {
                         <h1 className={styles.heading}>{name}</h1>
                         <Prices {...pricingDetails} isBase />
                         <div className={styles.properties}>
-                            {product.properties.map((property) => {
+                            {product.properties.map((property, index) => {
                                 return (
-                                    <div className={styles.property}>
+                                    <div key={index} className={styles.property}>
                                         <span className={styles.name}>{property.name}</span>
                                         <span className={styles.value}>{property.value}</span>
                                     </div>

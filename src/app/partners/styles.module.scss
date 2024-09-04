@@ -1,0 +1,35 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 100rem;
+}
+
+.section {
+  width: 15rem;
+  height: 10rem;
+
+  border-radius: .75rem;
+  padding: .75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgb(255, 255, 255);
+
+  &.some {
+    background: rgb(61, 91, 88);
+  }
+}
+
+.image {
+  object-fit: contain;
+
+  width: 70%;
+}

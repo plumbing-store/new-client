@@ -40,9 +40,9 @@ const Popover = ({ options, isHidden, setIsHidden, onClick }: Props) => {
 
     return (
         <div className={classNames(styles.popover, { [styles.hidden]: isHidden })} ref={popoverRef}>
-            {options.map((option) => (
+            {options.map((option, index) => (
                 <button
-                    key={option.value}
+                    key={index}
                     className={styles.option}
                     onClick={() => {
                         setIsHidden(true)

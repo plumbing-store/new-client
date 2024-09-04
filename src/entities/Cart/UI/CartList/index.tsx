@@ -23,7 +23,7 @@ const CartList = () => {
                 <div className={styles.cell}>Цена (штучно и всего)</div>
             </div>
             <div className={styles.list}>
-                {items.map((item) => {
+                {items.map((item, index) => {
                     const props = {
                         ...item,
                         priceId: item.price.id,
@@ -31,7 +31,7 @@ const CartList = () => {
                         oldPrice: item.oldPrice.price
                     }
 
-                    return <CartItem {...props} />
+                    return <CartItem key={index} {...props} />
                 })}
             </div>
         </div>

@@ -81,9 +81,9 @@ const Select = ({ label, options, value, isOptional, isValid = true, onChange }:
                             Ничего не выбрано
                         </li>
                     )}
-                    {options.map((option) => (
+                    {options.map((option, index) => (
                         <li
-                            key={option.value}
+                            key={index}
                             className={styles.option}
                             onClick={() => handleSelect(option)}
                         >

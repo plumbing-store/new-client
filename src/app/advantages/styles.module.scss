@@ -1,0 +1,54 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+
+  & ol li {
+    list-style-type: decimal;
+  }
+
+  & ul li {
+    list-style-type: disc;
+  }
+
+  & li {
+    list-style-position: inside;
+  }
+
+  & h3 {
+      font-weight: 530;
+  }
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.75rem;
+
+  & p, li {
+    font-size: 1.05rem;
+    font-weight: 550;
+    line-height: 150%;
+
+    width: min(100%, 50rem);
+  }
+
+  & a {
+    display: inline;
+
+    transition: 200ms all ease-in-out;
+
+    color: var(--color-primary);
+
+    &:hover {
+      color: var(--color-tertiary);
+    }
+  }
+}

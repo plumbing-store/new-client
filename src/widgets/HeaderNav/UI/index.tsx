@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import styles from './styles.module.scss'
 import Popover from '@/shared/UI/Popover'
+import { useRouter } from 'next/navigation'
 
 const HeaderNav = () => {
     const [isHidden, setIsHidden] = useState(true)
     const [activePopover, setActivePopover] = useState<number | null>(null)
+
+    const router = useRouter()
 
     const links = [
         {
@@ -34,6 +37,10 @@ const HeaderNav = () => {
                 {
                     name: 'Рекламации',
                     value: '/ad'
+                },
+                {
+                    name: 'Как оформить заказ',
+                    value: '/how'
                 }
             ]
         },
@@ -44,6 +51,8 @@ const HeaderNav = () => {
     ]
 
     const onOptionClick = (value: string) => {
+        router.push(value)
+
         setIsHidden(true)
         setActivePopover(null)
     }

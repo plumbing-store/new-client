@@ -79,7 +79,7 @@ const CategoryFilter = () => {
                         : property.name
 
                     return (
-                        <div className={styles.property} key={property.id}>
+                        <div key={property.id} className={styles.property}>
                             <div
                                 className={styles.header}
                                 onClick={() => toggleProperty(property.id)}

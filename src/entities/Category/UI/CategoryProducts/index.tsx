@@ -14,8 +14,8 @@ const CategoryProducts = () => {
 
     return (
         <div className={classNames(styles.wrapper, styles[displayState])}>
-            {category.products.map((product) => {
-                return <ProductCard state={displayState} {...product} />
+            {category.products.map((product, index) => {
+                return <ProductCard key={index} state={displayState} {...product} />
             })}
         </div>
     )

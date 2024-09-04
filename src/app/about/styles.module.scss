@@ -1,0 +1,19 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.05rem;
+
+  & p {
+    font-size: 1.05rem;
+    font-weight: 550;
+    line-height: 150%;
+    width: min(100%, 60rem);
+  }
+}

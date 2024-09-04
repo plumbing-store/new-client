@@ -18,7 +18,7 @@ const Breadcrumbs = ({ breadcrumbs }: Props) => {
                 console.log(slug)
 
                 return (
-                    <React.Fragment key={slug}>
+                    <React.Fragment key={index}>
                         <Link
                             className={classNames(styles.link, { [styles.active]: isLast })}
                             href={`/categories/${slug}`}
