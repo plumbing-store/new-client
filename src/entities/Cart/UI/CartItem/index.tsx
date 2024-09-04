@@ -22,10 +22,6 @@ const CartItem = ({ product, priceId, price, oldPrice, quantity, total }: Props)
     const { account, setAccount } = useAuthStore()
     const maxQuantity = 999
 
-    if (!account) {
-        return null
-    }
-
     const pricingDetails = {
         price: {
             currentPrice: price,
@@ -35,28 +31,6 @@ const CartItem = ({ product, priceId, price, oldPrice, quantity, total }: Props)
             currentPrice: price * quantity,
             basePrice: oldPrice * quantity
         }
-    }
-
-    const onRemove = async () => {
-        const cart = await deleteProduct(account.cart.id, { productId: product.id, priceId })
-
-        if (!cart) {
-            return
-        }
-
-        setAccount((prevState) => {
-            if (prevState === null) {
-                throw new Error('Account should not be null')
-            }
-
-            return {
-                ...prevState,
-                cart: {
-                    ...prevState.cart,
-                    data: prevState.cart.data.filter((item: any) => item.product.id !== product.id)
-                }
-            }
-        })
     }
 
     const updateQuantity = async (newQuantity: number, withButtons: boolean = false) => {
@@ -90,6 +64,32 @@ const CartItem = ({ product, priceId, price, oldPrice, quantity, total }: Props)
                         }
                         return item
                     })
+                }
+            }
+        })
+    }
+
+    if (!account) {
+        return null
+    }
+
+    const onRemove = async () => {
+        const cart = await deleteProduct(account.cart.id, { productId: product.id, priceId })
+
+        if (!cart) {
+            return
+        }
+
+        setAccount((prevState) => {
+            if (prevState === null) {
+                throw new Error('Account should not be null')
+            }
+
+            return {
+                ...prevState,
+                cart: {
+                    ...prevState.cart,
+                    data: prevState.cart.data.filter((item: any) => item.product.id !== product.id)
                 }
             }
         })

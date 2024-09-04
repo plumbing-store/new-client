@@ -10,7 +10,7 @@ import { logOut } from '@/shared/helpers/logout'
 import { useLocalStorage } from '@/shared/hooks/useLocalStorage'
 
 const ProfileButton = () => {
-    const [isPopoverVisible, setIsPopoverVisible] = useState(false)
+    const [isPopoverHidden, setIsPopoverHidden] = useState(false)
     const router = useRouter()
     const pathname = usePathname()
 
@@ -29,14 +29,14 @@ const ProfileButton = () => {
             setAccount(null)
             setStoredToken(null)
 
-            setIsPopoverVisible(false)
+            setIsPopoverHidden(true)
 
             return
         }
 
         router.push(value)
 
-        setIsPopoverVisible(false)
+        setIsPopoverHidden(true)
     }
 
     const profileOptions = [
@@ -56,7 +56,7 @@ const ProfileButton = () => {
 
     const handleClick = () => {
         if (account) {
-            setIsPopoverVisible(!isPopoverVisible)
+            setIsPopoverHidden(false)
         } else {
             router.push('/login')
         }
@@ -67,11 +67,11 @@ const ProfileButton = () => {
             <button className={styles.button} onClick={() => handleClick()}>
                 <PersonIcon style={{ fontSize: 30 }} />
             </button>
-            {isPopoverVisible && (
+            {!isPopoverHidden && (
                 <Popover
                     options={profileOptions}
-                    isHidden={!isPopoverVisible}
-                    setIsHidden={setIsPopoverVisible}
+                    isHidden={isPopoverHidden}
+                    setIsHidden={setIsPopoverHidden}
                     onClick={handleOptionClick}
                 />
             )}

@@ -17,3 +17,18 @@
 .heading {
   font-size: clamp(1.25rem, 3vw, 1.75rem);
 }
+
+.hint {
+  font-weight: 600;
+  font-size: .825rem;
+
+  & a {
+    color: var(--color-tertiary);
+
+    transition: 200ms all ease-in-out;
+
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+}

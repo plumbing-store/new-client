@@ -90,9 +90,9 @@ const ProfileForm = () => {
     const ProfileSchema = useMemo(
         () =>
             createObjectValidator({
-                name: createFieldValidator(language).isRequired(),
+                name: createFieldValidator(language).isRequired().min(2).max(100),
                 phone: createFieldValidator(language).isRequired().isPhoneNumber(),
-                password: createFieldValidator(language),
+                password: createFieldValidator(language).min(10).max(100),
                 confirmPassword: createFieldValidator(language).custom((value, values) => {
                     if (values.password && !value) {
                         return localization.confirmPassword[language]
@@ -128,13 +128,9 @@ const ProfileForm = () => {
         }
     }
 
-    if (!account) {
-        return null
-    }
-
     const { values, errors, handleSubmit, handleChange, isLoading } = useFormSubmit(
         {
-            initialValues: {
+            initialValues: account && {
                 name: account.name,
                 phone: account.phone,
                 password: '',
@@ -147,6 +143,10 @@ const ProfileForm = () => {
         ProfileSchema,
         onSubmit
     )
+
+    if (!account) {
+        return null
+    }
 
     return (
         <div className={styles.wrapper}>

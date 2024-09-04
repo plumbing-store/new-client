@@ -1,13 +1,13 @@
 import React from 'react'
-import styles from './styles.module.scss'
-import LoginForm from '@/features/Authentication/UI/LoginForm'
 import Layout from '@/shared/UI/Layout'
+import styles from './styles.module.scss'
+import RegistrationForm from '@/features/Authentication/UI/RegistrationForm'
 
 const Page = () => {
     return (
         <Layout>
             <div className={styles.wrapper}>
-                <LoginForm />
+                <RegistrationForm />
             </div>
         </Layout>
     )

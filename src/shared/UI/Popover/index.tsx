@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, Dispatch, RefObject } from 'react'
+import React, { useState, useRef, useEffect, Dispatch } from 'react'
 import styles from './styles.module.scss'
 import classNames from 'classnames'
 
@@ -19,22 +19,19 @@ const Popover = ({ options, isHidden, setIsHidden, onClick }: Props) => {
 
     const handleClickOutside = (event: MouseEvent) => {
         const target = event.target as Node
+        console.log('Clicked target:', target)
 
-        if (
-            popoverRef.current &&
-            !popoverRef.current.contains(target) &&
-            !(target instanceof HTMLButtonElement) &&
-            !(target instanceof Element && target.closest('button'))
-        ) {
+        if (popoverRef.current && !popoverRef.current.contains(target)) {
+            console.log('Click outside detected')
             setIsHidden(true)
         }
     }
 
     useEffect(() => {
-        document.addEventListener('click', handleClickOutside)
+        document.addEventListener('click', handleClickOutside, true) // capture phase
 
         return () => {
-            document.removeEventListener('click', handleClickOutside)
+            document.removeEventListener('click', handleClickOutside, true)
         }
     }, [])
 

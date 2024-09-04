@@ -57,6 +57,10 @@ const HeaderNav = () => {
         setActivePopover(null)
     }
 
+    const setIsPopoverHidden = (isHidden: boolean) => {
+        setActivePopover(isHidden ? null : activePopover)
+    }
+
     return (
         <div className={styles.nav}>
             {links.map((link, index) => (
@@ -79,7 +83,7 @@ const HeaderNav = () => {
                                 <Popover
                                     options={link.options || []}
                                     isHidden={activePopover !== index}
-                                    setIsHidden={setIsHidden}
+                                    setIsHidden={setIsPopoverHidden}
                                     onClick={onOptionClick}
                                 />
                             )}

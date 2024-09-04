@@ -16,6 +16,7 @@ import useFormSubmit from '@/shared/hooks/useFormSubmit'
 import { useLogin } from '@/shared/hooks/useLogin'
 import { useLanguage } from '@/app/providers/LanguageProvider'
 import { Language } from '@/shared/types/languages'
+import Link from 'next/link'
 
 const localization = {
     enter: {
@@ -117,6 +118,9 @@ const LoginForm = () => {
             <Button onClick={() => handleSubmit()} isLoading={isLoading}>
                 {localization.continue[language]}
             </Button>
+            <div className={styles.hint}>
+                Ещё нет аккаунта? <Link href='/registration'>Создайте сейчас</Link>
+            </div>
         </div>
     )
 }
