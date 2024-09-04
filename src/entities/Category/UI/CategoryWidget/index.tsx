@@ -14,6 +14,7 @@ import { fetchProducts } from '@/entities/Product/api/fetchProducts'
 import { quantity } from '@/entities/Category/model/constants'
 import { generateFilter, updateProducts } from '@/entities/Category/model/helpers'
 import CategoryBreadcrumbs from '@/entities/Category/UI/CategoryBreadcrumbs'
+import FixedLoader from '@/shared/UI/FixedLoader'
 
 interface Props {
     depth: number
@@ -24,7 +25,10 @@ interface Props {
 }
 
 const CategoryWidget = ({ depth, total, breadcrumbs, category, properties }: Props) => {
+    const [isLoading, setIsLoading] = useState(false)
+
     const {
+        history,
         setCategory,
         setProperties,
         setBreadcrumbs,
@@ -32,15 +36,33 @@ const CategoryWidget = ({ depth, total, breadcrumbs, category, properties }: Pro
         total: totalValue,
         setTotal,
         setDepth,
-        setPage
+        setPage,
+        setSelectedProperties
     } = useCategoryStore()
 
     useEffect(() => {
+        const storedCategory = history.find((item) => item.categoryId === category.id)
+
         setCategory(category)
-        setDepth(depth)
         setBreadcrumbs(breadcrumbs)
         setProperties(properties)
+        setDepth(depth)
         setTotal(total)
+
+        if (storedCategory) {
+            setPage(storedCategory.page)
+            setSelectedProperties(storedCategory.selectedProperties)
+
+            const fetch = async () => {
+                setIsLoading(true)
+
+                await updateProducts()
+
+                setIsLoading(false)
+            }
+
+            fetch()
+        }
     }, [])
 
     const onPageChange = async (page: number) => {
@@ -71,6 +93,7 @@ const CategoryWidget = ({ depth, total, breadcrumbs, category, properties }: Pro
                     />
                 </div>
             </div>
+            {isLoading && <FixedLoader />}
         </div>
     )
 }

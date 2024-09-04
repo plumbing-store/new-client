@@ -30,7 +30,7 @@
 }
 
 .heading {
-  font-size: 1.75rem;
+  font-size: clamp(1.0rem, 2.75vw, 1.65rem);
 }
 
 .orders {

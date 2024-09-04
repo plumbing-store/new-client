@@ -14,8 +14,6 @@ const OrdersHeader = () => {
         return false
     }
 
-    console.log(account)
-
     const numberOfOrders = account.orders.length
     const numberOfProducts = account.orders.reduce((acc, order) => acc + order.products.length, 0)
 

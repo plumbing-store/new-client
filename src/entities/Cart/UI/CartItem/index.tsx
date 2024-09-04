@@ -20,7 +20,7 @@ interface Props {
 
 const CartItem = ({ product, priceId, price, oldPrice, quantity, total }: Props) => {
     const { account, setAccount } = useAuthStore()
-    const maxQuantity = 500000000
+    const maxQuantity = 999
 
     if (!account) {
         return null
@@ -59,10 +59,22 @@ const CartItem = ({ product, priceId, price, oldPrice, quantity, total }: Props)
         })
     }
 
-    const updateQuantity = async (newQuantity: number) => {
+    const updateQuantity = async (newQuantity: number, withButtons: boolean = false) => {
         setAccount((prevState) => {
             if (prevState === null) {
                 throw new Error('Account should not be null')
+            }
+
+            if (withButtons && newQuantity === 0) {
+                return {
+                    ...prevState,
+                    cart: {
+                        ...prevState.cart,
+                        data: prevState.cart.data.filter(
+                            (item: any) => item.product.id !== product.id
+                        )
+                    }
+                }
             }
 
             return {
@@ -102,7 +114,7 @@ const CartItem = ({ product, priceId, price, oldPrice, quantity, total }: Props)
             </div>
             <QuantitySelector
                 quantity={quantity}
-                setQuantity={updateQuantity}
+                onChange={updateQuantity}
                 maxQuantity={maxQuantity}
             />
             <div className={styles.cells}>

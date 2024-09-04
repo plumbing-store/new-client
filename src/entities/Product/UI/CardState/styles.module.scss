@@ -53,6 +53,10 @@
   font-weight: 550;
 }
 
+.meta {
+  padding-left: .75rem;
+}
+
 .cell {
   display: flex;
   align-items: center;
@@ -64,7 +68,7 @@
 }
 
 .quantity {
-  color: var(--color-primary-transparent-75);
+  color: var(--color-fink-transparent-75);
 
   font-size: .875rem;
 }

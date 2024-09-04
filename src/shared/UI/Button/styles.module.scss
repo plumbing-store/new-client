@@ -9,7 +9,7 @@
   font-weight: 500;
   font-size: 1.05rem;
   color: var(--color-light);
-  background-color: var(--color-primary);
+  background-color: var(--color-fink);
   border: none;
   border-radius: .75rem;
   cursor: pointer;
@@ -19,7 +19,7 @@
   width: 100%;
 
   &:hover {
-    background: var(--color-dark-transparent-90);
+    background: var(--color-primary);
   }
 
   &:focus:not(:focus-visible) {

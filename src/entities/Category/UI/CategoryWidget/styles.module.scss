@@ -3,6 +3,8 @@
   flex-direction: column;
 
   gap: 2.15rem;
+
+  flex: 1;
 }
 
 .core {
@@ -10,6 +12,8 @@
   flex-direction: column;
 
   gap: 1.5rem;
+
+  flex: 1;
 
   @media (min-width: 992px) {
     flex-direction: row-reverse;

@@ -10,7 +10,7 @@
     display: grid;
   }
 
-  @media (min-width: 400px) {
+  @media (min-width: 460px) {
     &.grid {
       grid-template-columns: repeat(2, 1fr);
     }

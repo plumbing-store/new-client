@@ -1,6 +1,19 @@
 import { create } from 'zustand'
 import { ICategory } from '@/entities/Category/model/types'
-import { DisplayState } from '@/entities/Product/model/types'
+import { DisplayState, IProduct } from '@/entities/Product/model/types'
+
+interface ISortOptions {
+    sort: 'price' | 'name'
+    sortInverse: boolean
+}
+
+export interface IHistoryItem {
+    categoryId: number
+    page: number
+
+    sortOptions: ISortOptions
+    selectedProperties: IProperty[]
+}
 
 export interface IProperty {
     id: number
@@ -32,22 +45,14 @@ interface ICategoryState {
     properties: IProperty[]
     setProperties: (properties: IProperty[]) => void
 
-    selectedProperties: Record<string, string>[]
-    setSelectedProperties: (
-        value:
-            | Record<string, string>[]
-            | ((prevState: Record<string, string>[]) => Record<string, string>[])
-    ) => void
+    history: IHistoryItem[]
+    setHistory: (value: IHistoryItem[] | ((prevState: IHistoryItem[]) => IHistoryItem[])) => void
 
-    sortOptions: { sort: 'name' | 'price'; sortInverse: boolean }
-    setSortOptions: (
-        value:
-            | { sort: 'name' | 'price'; sortInverse: boolean }
-            | ((prevState: { sort: 'name' | 'price'; sortInverse: boolean }) => {
-                  sort: 'name' | 'price'
-                  sortInverse: boolean
-              })
-    ) => void
+    selectedProperties: IProperty[]
+    setSelectedProperties: (value: IProperty[] | ((prevState: IProperty[]) => IProperty[])) => void
+
+    sortOptions: ISortOptions
+    setSortOptions: (value: ISortOptions | ((prevState: ISortOptions) => ISortOptions)) => void
 
     displayState: DisplayState
     setDisplayState: (displayState: DisplayState) => void
@@ -86,6 +91,10 @@ export const useCategoryStore = create<ICategoryState>((set) => ({
         set((state) => ({
             sortOptions: typeof value === 'function' ? value(state.sortOptions) : value
         })),
+
+    history: [],
+    setHistory: (value) =>
+        set((state) => ({ history: typeof value === 'function' ? value(state.history) : value })),
 
     selectedProperties: [],
     setSelectedProperties: (value) =>

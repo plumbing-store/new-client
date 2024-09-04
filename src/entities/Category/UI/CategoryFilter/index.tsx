@@ -39,17 +39,17 @@ const CategoryFilter = () => {
                     if (i === index) {
                         return {
                             ...item,
-                            value
+                            values: item.values.includes(value)
+                                ? item.values.filter((v) => v !== value)
+                                : [...item.values, value]
                         }
                     }
                     return item
                 })
             } else {
-                return [...prevState, { name: property.name, value }]
+                return [...prevState, { id: property.id, name: property.name, values: [value] }]
             }
         })
-
-        setOpenProperty(null)
     }
 
     const applyFilter = async () => {
@@ -72,13 +72,14 @@ const CategoryFilter = () => {
                 <h3 className={styles.heading}>Фильтр</h3>
                 <div className={styles.properties}>
                     {properties.map((property) => {
-                        const selectedValue = selectedProperties.find(
+                        const selectedValues = selectedProperties.find(
                             (item) => item.name === property.name
-                        )?.value
+                        )?.values
 
-                        const propertyName = selectedValue
-                            ? `${property.name} (${selectedValue})`
-                            : property.name
+                        const propertyName =
+                            selectedValues && selectedValues.length > 0
+                                ? `${property.name} (${selectedValues.join(', ')})`
+                                : property.name
 
                         return (
                             <div key={property.id} className={styles.property}>
@@ -86,7 +87,7 @@ const CategoryFilter = () => {
                                     className={styles.header}
                                     onClick={() => toggleProperty(property.id)}
                                 >
-                                    <p className={styles.name}>{propertyName}</p>
+                                    <p className={styles.name}>{property.name}</p>
                                     <ExpandMoreIcon
                                         className={`${styles.icon} ${openProperty === property.id ? styles.open : ''}`}
                                     />
@@ -96,15 +97,25 @@ const CategoryFilter = () => {
                                         [styles.hidden]: openProperty !== property.id
                                     })}
                                 >
-                                    {property.values.map((value, index) => (
-                                        <li
-                                            key={index}
-                                            className={styles.value}
-                                            onClick={() => handleValueClick(property, value)}
-                                        >
-                                            {value}
-                                        </li>
-                                    ))}
+                                    {property.values.map((value, index) => {
+                                        const isActive = selectedProperties.some(
+                                            (item) =>
+                                                item.name === property.name &&
+                                                item.values.includes(value)
+                                        )
+
+                                        return (
+                                            <li
+                                                key={index}
+                                                className={classNames(styles.value, {
+                                                    [styles.active]: isActive
+                                                })}
+                                                onClick={() => handleValueClick(property, value)}
+                                            >
+                                                {isActive ? '✓' : ''} {value}
+                                            </li>
+                                        )
+                                    })}
                                 </ul>
                             </div>
                         )

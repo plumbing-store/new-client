@@ -22,8 +22,6 @@ const GridState = ({ isStatic = false, ...props }: Props) => {
     const base = account ? account.priceName : PriceName.UNAUTHORIZED
 
     if (prices.length === 0) {
-        console.log(props)
-
         return
     }
 

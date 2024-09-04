@@ -3,21 +3,15 @@ import { quantity as defaultValue } from '@/entities/Category/model/constants'
 
 export const fetchProducts = async (
     categoryId: number,
-    quantity: number = defaultValue,
-    skip: number = 0,
-    filter: Record<string, string> = {} as Record<string, string>,
-    sort: 'price' | 'name' = 'price',
-    sortInverse: boolean = false
+    params: {
+        quantity: number
+        skip: number
+        filter: Record<string, string>
+        sort: string
+        sortInverse: boolean
+    }
 ) => {
     try {
-        const params: Record<string, any> = {
-            quantity,
-            skip,
-            filter,
-            sort,
-            sortInverse
-        }
-
         const {
             data: { result: products, total }
         } = await axiosInstance.get(`/categories/${categoryId}/products`, { params })

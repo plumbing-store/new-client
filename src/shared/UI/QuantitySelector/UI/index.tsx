@@ -1,34 +1,38 @@
+'use client'
+
 import React, { useRef } from 'react'
 import styles from './styles.module.scss'
 import RemoveIcon from '@mui/icons-material/Remove'
 import AddIcon from '@mui/icons-material/Add'
+import { formatQuantity } from '@/shared/helpers/formatQuantity'
 
 interface Props {
     quantity: number
-    setQuantity: (quantity: number) => void
+    onChange: (quantity: number, withButtons?: boolean) => void
     maxQuantity: number
+    onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
-const QuantitySelector = ({ quantity, setQuantity, maxQuantity }: Props) => {
+const QuantitySelector = ({ quantity, onChange, maxQuantity, onKeyDown }: Props) => {
     const addIntervalRef = useRef<NodeJS.Timeout | null>(null)
     const removeIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
     const handleAdd = () => {
         if (quantity < maxQuantity) {
-            setQuantity(quantity + 1)
+            onChange(quantity + 1, true)
         }
     }
 
     const handleRemove = () => {
         if (quantity > 0) {
-            setQuantity(quantity - 1)
+            onChange(quantity - 1, true)
         }
     }
 
     const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(event.target.value)
-        if (!isNaN(value) && value >= 0 && value <= maxQuantity) {
-            setQuantity(value)
+        if (!isNaN(value) && value > 0 && value <= maxQuantity) {
+            onChange(value)
         }
     }
 
@@ -69,8 +73,9 @@ const QuantitySelector = ({ quantity, setQuantity, maxQuantity }: Props) => {
             <input
                 className={styles.input}
                 type='number'
-                value={quantity}
+                value={formatQuantity(String(quantity))}
                 onChange={onInputChange}
+                onKeyDown={onKeyDown}
                 placeholder='0'
                 min={0}
                 max={maxQuantity}

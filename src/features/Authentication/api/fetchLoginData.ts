@@ -9,8 +9,6 @@ export const fetchLoginData = async (login: string, password: string) => {
 
         return data
     } catch (error) {
-        console.log(error)
-
         throw new Error('Login failed')
     }
 }

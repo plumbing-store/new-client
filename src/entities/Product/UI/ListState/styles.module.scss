@@ -41,6 +41,11 @@
   font-weight: 550;
 }
 
+
+.meta {
+  padding-left: .75rem;
+}
+
 .end {
   display: flex;
   flex-direction: column;
@@ -59,7 +64,7 @@
 }
 
 .quantity {
-  color: var(--color-primary-transparent-75);
+  color: var(--color-fink-transparent-75);
 
   font-size: .875rem;
 }

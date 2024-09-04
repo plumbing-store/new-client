@@ -29,10 +29,10 @@
   }
 
   &:hover {
-    background-color: var(--color-primary-transparent-5);
+    background-color: var(--color-primary-transparent-10);
 
     & * {
-      color: var(--color-primary-transparent-50);
+      color: var(--color-primary-transparent-60);
     }
   }
 }

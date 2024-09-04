@@ -5,10 +5,10 @@
 
   overflow: hidden;
   cursor: pointer;
+  height: fit-content;
 
   transition: 100ms all ease-in-out;
 
-  &:hover {
-    scale: 1.005;
-  }
+  position: relative;
+  z-index: 50;
 }

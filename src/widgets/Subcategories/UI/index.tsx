@@ -11,8 +11,6 @@ interface Props {
 }
 
 const Subcategories = ({ categories }: Props) => {
-    console.log(categories)
-
     const router = useRouter()
 
     const toCategory = (slug: string) => {

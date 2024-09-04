@@ -57,6 +57,12 @@ const PurchaseForm = ({ product }: Props) => {
         setQuantity(0)
     }
 
+    const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            handleAddToCart()
+        }
+    }
+
     return (
         <div className={classNames(styles.wrapper, 'noLink')}>
             <button className={styles.button} onClick={handleAddToCart}>
@@ -64,8 +70,9 @@ const PurchaseForm = ({ product }: Props) => {
             </button>
             <QuantitySelector
                 quantity={quantity}
-                setQuantity={setQuantity}
+                onChange={setQuantity}
                 maxQuantity={maxQuantity}
+                onKeyDown={onKeyDown}
             />
         </div>
     )

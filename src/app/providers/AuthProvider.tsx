@@ -62,8 +62,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         if (storedToken) {
             const account = await fetchAccount()
 
-            console.log(account)
-
             if (account) {
                 setAccount(account)
                 setCookie('role', account.role)

@@ -15,8 +15,6 @@ const Breadcrumbs = ({ breadcrumbs }: Props) => {
             {breadcrumbs.map(({ name, slug }, index) => {
                 const isLast = index === breadcrumbs.length - 1
 
-                console.log(slug)
-
                 return (
                     <React.Fragment key={index}>
                         <Link

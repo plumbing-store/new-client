@@ -1,15 +1,19 @@
 .wrapper {
   display: flex;
+
+  min-height: 100vh;
 }
 
 .content {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
-  padding: 0 1rem 1rem;
+  padding: 0 1.25rem 1rem;
   width: min(100%, 120rem);
 }
 
 .main {
+  display: flex;
+
   flex-grow: 1;
 }
