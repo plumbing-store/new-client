@@ -10,7 +10,7 @@ import { logOut } from '@/shared/helpers/logout'
 import { useLocalStorage } from '@/shared/hooks/useLocalStorage'
 
 const ProfileButton = () => {
-    const [isPopoverHidden, setIsPopoverHidden] = useState(false)
+    const [isPopoverHidden, setIsPopoverHidden] = useState(true)
     const router = useRouter()
     const pathname = usePathname()
 
@@ -19,6 +19,8 @@ const ProfileButton = () => {
     const { account, setAccount } = useAuthStore()
 
     const handleOptionClick = (value: string) => {
+        setIsPopoverHidden(true)
+
         if (value === 'LOGOUT') {
             console.log(pathname)
 
@@ -29,14 +31,10 @@ const ProfileButton = () => {
             setAccount(null)
             setStoredToken(null)
 
-            setIsPopoverHidden(true)
-
             return
         }
 
         router.push(value)
-
-        setIsPopoverHidden(true)
     }
 
     const profileOptions = [

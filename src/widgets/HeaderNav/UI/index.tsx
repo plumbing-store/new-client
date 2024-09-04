@@ -51,14 +51,17 @@ const HeaderNav = () => {
     ]
 
     const onOptionClick = (value: string) => {
+        setActivePopover(null)
+
         router.push(value)
 
         setIsHidden(true)
-        setActivePopover(null)
     }
 
     const setIsPopoverHidden = (isHidden: boolean) => {
-        setActivePopover(isHidden ? null : activePopover)
+        if (isHidden) {
+            setActivePopover(null)
+        }
     }
 
     return (
