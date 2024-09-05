@@ -40,7 +40,12 @@ const StoreProvider = ({ children }: Props) => {
                 return
             }
 
-            setCategories(data)
+            setCategories(
+                data.filter(
+                    (c: any) =>
+                        !['Я не Существующий товар', 'Misc', 'Рекламная Продукция'].includes(c.name)
+                )
+            )
         }
 
         fetch()

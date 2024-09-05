@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import classNames from 'classnames'
@@ -78,9 +79,16 @@ const Navbar = () => {
             transition={{ duration: 0.5 }}
         >
             <div className={styles.head}>
-                <h3>
-                    Сантехпр<span>💧</span>ф
-                </h3>
+                {/*<h3>*/}
+                {/*    Сантехпр<span>💧</span>ф*/}
+                {/*</h3>*/}
+                <Image
+                    className={styles.logo}
+                    src='/images/vector/default-logo-3.svg'
+                    alt='Сантехпр💧ф'
+                    width={200}
+                    height={100}
+                />
             </div>
             <nav className={styles.navbar}>
                 <div className={styles.top}>{/* Logo or any top content */}</div>
