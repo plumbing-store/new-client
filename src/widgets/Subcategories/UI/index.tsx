@@ -5,6 +5,7 @@ import React from 'react'
 import styles from './styles.module.scss'
 import { ICategory } from '@/entities/Category/model/types'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 interface Props {
     categories: ICategory[]
@@ -17,20 +18,23 @@ const Subcategories = ({ categories }: Props) => {
         router.push(`/categories/${slug}`)
     }
 
+    console.log(categories)
+
     return (
         <div className={styles.categories}>
             {categories.map((category) => {
                 return (
-                    <div
+                    <Link
+                        href={`/categories/${category.slug}`}
+                        target='_blank'
                         className={styles.card}
                         style={{
-                            backgroundImage: `url('/images/raster/${category.externalId}.webp')`
+                            backgroundImage: `url('/images/raster/${category.externalId}.png')`
                         }}
-                        onClick={() => toCategory(category.slug)}
                     >
                         <div className={styles.overlay} />
                         <h2 className={styles.name}>{category.name}</h2>
-                    </div>
+                    </Link>
                 )
             })}
         </div>

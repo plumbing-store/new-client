@@ -24,7 +24,13 @@
   align-items: center;
   justify-content: center;
 
+  & svg {
+    transition: 200ms all ease-in-out;
+  }
+
   &:hover {
-    color: var(--color-tertiary);
+    & svg {
+      color: var(--color-tertiary);
+    }
   }
 }
