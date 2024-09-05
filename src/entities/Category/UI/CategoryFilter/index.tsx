@@ -25,6 +25,7 @@ const CategoryFilter = () => {
         setIsAutoLoadDisabled
     } = useCategoryStore()
     const [openProperty, setOpenProperty] = useState<number | null>(null)
+    const [searchTerms, setSearchTerms] = useState<{ [key: number]: string }>({}) // Для поиска по каждому свойству
 
     useEffect(() => {
         setSelectedProperties([])
@@ -70,6 +71,13 @@ const CategoryFilter = () => {
         await updateProducts()
     }
 
+    const handleSearchChange = (propertyId: number, searchTerm: string) => {
+        setSearchTerms((prevState) => ({
+            ...prevState,
+            [propertyId]: searchTerm
+        }))
+    }
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.top}>
@@ -85,6 +93,13 @@ const CategoryFilter = () => {
                                 ? `${property.name} (${selectedValues.join(', ')})`
                                 : property.name
 
+                        const searchTerm = searchTerms[property.id] || ''
+
+                        // Фильтрация значений свойства на основе поискового запроса
+                        const filteredValues = property.values.filter((value) =>
+                            value.toLowerCase().includes(searchTerm.toLowerCase())
+                        )
+
                         return (
                             <div key={property.id} className={styles.property}>
                                 <div
@@ -94,31 +109,51 @@ const CategoryFilter = () => {
                                     <p className={styles.name}>{property.name}</p>
                                     <ExpandMore isExpanded={openProperty === property.id} />
                                 </div>
-                                <ul
-                                    className={classNames(styles.list, {
+                                <div
+                                    className={classNames(styles.searchWrapper, {
                                         [styles.hidden]: openProperty !== property.id
                                     })}
                                 >
-                                    {property.values.map((value, index) => {
-                                        const isActive = selectedProperties.some(
-                                            (item) =>
-                                                item.name === property.name &&
-                                                item.values.includes(value)
-                                        )
+                                    {/* Поле поиска */}
+                                    <ul
+                                        className={classNames(styles.list, {
+                                            [styles.hidden]: openProperty !== property.id
+                                        })}
+                                    >
+                                        <li>
+                                            <input
+                                                type='text'
+                                                className={styles.searchInput}
+                                                placeholder={`Поиск по (${property.name})`}
+                                                value={searchTerm}
+                                                onChange={(e) =>
+                                                    handleSearchChange(property.id, e.target.value)
+                                                }
+                                            />
+                                        </li>
+                                        {filteredValues.map((value, index) => {
+                                            const isActive = selectedProperties.some(
+                                                (item) =>
+                                                    item.name === property.name &&
+                                                    item.values.includes(value)
+                                            )
 
-                                        return (
-                                            <li
-                                                key={index}
-                                                className={classNames(styles.value, {
-                                                    [styles.active]: isActive
-                                                })}
-                                                onClick={() => handleValueClick(property, value)}
-                                            >
-                                                {isActive ? '✓' : ''} {value}
-                                            </li>
-                                        )
-                                    })}
-                                </ul>
+                                            return (
+                                                <li
+                                                    key={index}
+                                                    className={classNames(styles.value, {
+                                                        [styles.active]: isActive
+                                                    })}
+                                                    onClick={() =>
+                                                        handleValueClick(property, value)
+                                                    }
+                                                >
+                                                    {isActive ? '✓' : ''} {value}
+                                                </li>
+                                            )
+                                        })}
+                                    </ul>
+                                </div>
                             </div>
                         )
                     })}

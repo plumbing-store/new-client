@@ -10,7 +10,6 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: .5rem;
-    max-width: 50vw;
   }
 
   .arrows {
@@ -48,4 +47,40 @@
   //@media (min-width: 1200px) {
   //  justify-content: space-between;
   //}
+}
+
+.desktop {
+  display: none;
+
+  @media (min-width: 576px) {
+    display: flex;
+  }
+}
+
+.mobile {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+
+  gap: .25rem;
+
+  @media (min-width: 576px) {
+    display: none;
+  }
+
+  @media (min-width: 400px) and (max-width: 576px) {
+    & .pageNumbers {
+      max-width: 70vw;
+    }
+  }
+
+  & .arrows {
+    display: flex;
+
+    & .part {
+      display: flex;
+
+      gap: .5rem;
+    }
+  }
 }

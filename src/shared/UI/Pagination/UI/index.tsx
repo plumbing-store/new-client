@@ -61,21 +61,88 @@ const Pagination = ({
 
     return (
         <div className={styles.pagination}>
-            <div className={styles.arrows}>
-                <button
-                    className={styles.pageButton}
-                    onClick={() => handlePageChange(Math.max(1, localPage - step))}
-                    disabled={localPage <= step}
-                >
-                    &lt;&lt;
-                </button>
-                <button
-                    className={styles.pageButton}
-                    onClick={() => handlePageChange(Math.max(1, localPage - 1))}
-                    disabled={localPage === 1}
-                >
-                    &lt;
-                </button>
+            <div className={styles.desktop}>
+                <div className={styles.arrows}>
+                    <button
+                        className={styles.pageButton}
+                        onClick={() => handlePageChange(Math.max(1, localPage - step))}
+                        disabled={localPage <= step}
+                    >
+                        &lt;&lt;
+                    </button>
+                    <button
+                        className={styles.pageButton}
+                        onClick={() => handlePageChange(Math.max(1, localPage - 1))}
+                        disabled={localPage === 1}
+                    >
+                        &lt;
+                    </button>
+                    <div className={styles.pageNumbers}>
+                        {getPageNumbers().map((page, index) => (
+                            <button
+                                key={index}
+                                className={`${styles.pageButton} ${localPage === page ? styles.active : ''}`}
+                                onClick={() =>
+                                    typeof page === 'number'
+                                        ? handlePageChange(page)
+                                        : handlePageChange(totalPages)
+                                }
+                            >
+                                {page}
+                            </button>
+                        ))}
+                    </div>
+                    <button
+                        className={styles.pageButton}
+                        onClick={() => handlePageChange(Math.min(totalPages, localPage + 1))}
+                        disabled={localPage === totalPages}
+                    >
+                        &gt;
+                    </button>
+                    <button
+                        className={styles.pageButton}
+                        onClick={() => handlePageChange(Math.min(totalPages, localPage + step))}
+                        disabled={localPage + step > totalPages}
+                    >
+                        &gt;&gt;
+                    </button>
+                </div>
+            </div>
+            <div className={styles.mobile}>
+                <div className={styles.arrows}>
+                    <div className={styles.part}>
+                        <button
+                            className={styles.pageButton}
+                            onClick={() => handlePageChange(Math.max(1, localPage - step))}
+                            disabled={localPage <= step}
+                        >
+                            &lt;&lt;
+                        </button>
+                        <button
+                            className={styles.pageButton}
+                            onClick={() => handlePageChange(Math.max(1, localPage - 1))}
+                            disabled={localPage === 1}
+                        >
+                            &lt;
+                        </button>
+                    </div>
+                    <div className={styles.part}>
+                        <button
+                            className={styles.pageButton}
+                            onClick={() => handlePageChange(Math.min(totalPages, localPage + 1))}
+                            disabled={localPage === totalPages}
+                        >
+                            &gt;
+                        </button>
+                        <button
+                            className={styles.pageButton}
+                            onClick={() => handlePageChange(Math.min(totalPages, localPage + step))}
+                            disabled={localPage + step > totalPages}
+                        >
+                            &gt;&gt;
+                        </button>
+                    </div>
+                </div>
                 <div className={styles.pageNumbers}>
                     {getPageNumbers().map((page, index) => (
                         <button
@@ -91,20 +158,6 @@ const Pagination = ({
                         </button>
                     ))}
                 </div>
-                <button
-                    className={styles.pageButton}
-                    onClick={() => handlePageChange(Math.min(totalPages, localPage + 1))}
-                    disabled={localPage === totalPages}
-                >
-                    &gt;
-                </button>
-                <button
-                    className={styles.pageButton}
-                    onClick={() => handlePageChange(Math.min(totalPages, localPage + step))}
-                    disabled={localPage + step > totalPages}
-                >
-                    &gt;&gt;
-                </button>
             </div>
         </div>
     )
